@@ -1,0 +1,6 @@
+[submodule "Derek-Firmware"]
+	path = Derek-Firmware
+	url = git@github.com:Lyall-A/Derek-Firmware.git
+[submodule "Derek-Cam"]
+	path = Derek-Cam
+	url = git@github.com:Lyall-A/Derek-Cam.git
