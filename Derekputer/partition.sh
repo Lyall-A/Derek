@@ -24,18 +24,16 @@ sudo mkfs.vfat -I -F 32 "${disk}1"
 sudo mkfs.ext4 -F "${disk}2"
 
 echo "Mounting ${disk}..."
-sudo mkdir Mount
-sudo mount "${disk}2" ./Mount
-sudo mkdir Mount/boot
-sudo mount "${disk}1" ./Mount/boot
+sudo mount --mkdir "${disk}2" Mount
+sudo mount --mkdir "${disk}1" Mount/boot
 
 echo "Copying Derek OS to root partition..."
-sudo cp -r Derek-OS/* ./Mount
+sudo cp -r Derek-OS/* Mount
 
 echo "Copying files to boot partition..."
-sudo cp Image Derek-OS/boot
-sudo cp sun50i-h618-orangepi-zero3.dtb Derek-OS/boot
-sudo cp u-boot-sunxi-with-spl.bin Derek-OS/boot
+sudo cp Image Mount/boot
+sudo cp sun50i-h618-orangepi-zero3.dtb Mount/boot
+sudo cp u-boot-sunxi-with-spl.bin Mount/boot
 
 echo "Flashing U-Boot and SPL..."
 sudo dd if=u-boot-sunxi-with-spl.bin of="$disk" bs=8k seek=1
