@@ -5,28 +5,18 @@ if [ -z "$(command -v debootstrap)" ]; then
     exit 1
 fi
 
-if [ -z "$(command -v qemu-aarch64-static)" ]; then
-    echo "qemu-aarch64-static is not installed!"
+if [ -z "$(command -v aarch64-linux-gnu-gcc)" ]; then
+    echo "aarch64-linux-gnu-gcc is not installed!"
     exit 1
 fi
 
-echo "Installing Debian stable..."
-# sudo debootstrap --foreign --arch=arm64 stable Derek-OS
+echo "Downloading Debian stable..."
+sudo debootstrap --foreign --arch=arm64 stable Derek-OS
 
-echo "Adding qemu-aarch64-static..."
-sudo cp "$(command -v qemu-aarch64-static)" Derek-OS/usr/bin
+echo "Downloading U-Boot source..."
+git clone https://github.com/u-boot/u-boot.git U-Boot
+cd U-Boot
 
-echo "Mounting..."
-sudo mount --bind /dev Derek-OS/dev
-sudo mount --bind /proc Derek-OS/proc
-sudo mount --bind /sys Derek-OS/sys
-
-echo "Entering chroot environment..."
-sudo chroot Derek-OS /usr/bin/qemu-aarch64-static /bin/bash -c "
-    echo todo
-"
-
-echo "Unmounting..."
-sudo umount Derek-OS/dev
-sudo umount Derek-OS/proc
-sudo umount Derek-OS/sys
+echo "Compiling U-Boot..."
+make orangepi_zero3_defconfig
+make CROSS_COMPILE=aarch64-linux-gnu- -j $(nproc)
