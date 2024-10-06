@@ -35,7 +35,7 @@ sudo cp -r Derek-OS/* ./Mount
 echo "Copying files to boot partition..."
 sudo cp Image Derek-OS/boot
 sudo cp sun50i-h618-orangepi-zero3.dtb Derek-OS/boot
-sudo cp U-Boot-with-SPL.bin Derek-OS/boot
+sudo cp u-boot-sunxi-with-spl.bin Derek-OS/boot
 
 echo "Flashing U-Boot and SPL..."
-sudo dd if=U-Boot-with-SPL.bin of="$disk" bs=8k seek=1
+sudo dd if=u-boot-sunxi-with-spl.bin of="$disk" bs=8k seek=1
