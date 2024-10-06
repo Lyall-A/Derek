@@ -4,3 +4,6 @@
 [submodule "Derek-Cam"]
 	path = Derek-Cam
 	url = git@github.com:Lyall-A/Derek-Cam.git
+[submodule "Derek-PSU"]
+	path = Derek-PSU
+	url = git@github.com:Lyall-A/Derek-PSU.git
