@@ -31,3 +31,6 @@ sudo mount "${disk}1" ./Mount/boot
 
 echo "Copying Derek OS..."
 sudo cp -r ./Derek-OS/* ./Mount
+
+echo "Flashing U-Boot and SPL..."
+sudo dd if=U-Boot-with-SPL.bin of="$disk" bs=8k seek=1
