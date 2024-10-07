@@ -57,9 +57,9 @@ download "U-Boot" "U-Boot" "git clone https://github.com/u-boot/u-boot.git U-Boo
 cd Linux
 config "Linux" "defconfig" # NOTE: may need adjusted slightly, or just copied from armbian
 build "Linux DTB's" "arch/arm64/boot/Image" "Image"
+cp arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb ..
 build "Linux image" "arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb" "dtbs"
 cp arch/arm64/boot/Image ..
-cp arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb ..
 cd ..
 
 # Build required ARM Trusted Firmware files
