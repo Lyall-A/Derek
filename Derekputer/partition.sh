@@ -23,9 +23,9 @@ echo "Formatting partitions..."
 sudo mkfs.vfat -F 32 "${disk}1"
 sudo mkfs.ext4 -F "${disk}2"
 
-echo "Flashing U-Boot and SPL..."
+echo "Flashing U-Boot with SPL..."
 sudo dd if=/dev/zero of="$disk" bs=8k count=127 seek=1
-sudo dd if=u-boot-qemu.bin of="$disk" bs=8k seek=1
+sudo dd if=u-boot-sunxi-with-spl.bin of="$disk" bs=8k seek=1
 
 echo "Mounting ${disk}..."
 sudo mount --mkdir "${disk}2" Mount
