@@ -7,8 +7,8 @@ if [ -z "$(command -v bison)" ]; then echo "bison is not installed!"; exit 1; fi
 if [ -z "$(command -v bc)" ]; then echo "bc is not installed!"; exit 1; fi
 if [ -z "$(command -v swig)" ]; then echo "swig is not installed!"; exit 1; fi
 
-jobs=$(nproc)
-jobs=1
+# jobs=$(nproc)
+jobs=4
 
 echo "Downloading Debian stable..."
 sudo debootstrap --foreign --arch=arm64 stable Derek-OS http://deb.debian.org/debian/
