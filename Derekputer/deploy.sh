@@ -80,7 +80,7 @@ cd ..
 # Setup Derek OS
 echo "Setting up Derek OS..."
 sudo systemctl start systemd-binfmt.service
-sudo mount --mkdir --bind Derek-OS-Files Derek-OS/mnt
+sudo mount --mkdir --bind . Derek-OS/mnt
 sudo mount --bind /dev Derek-OS/dev
 sudo mount --bind /proc Derek-OS/proc
 sudo mount --bind /sys Derek-OS/sys
@@ -88,12 +88,27 @@ sudo mount --bind /run Derek-OS/run
 sudo chroot Derek-OS /bin/bash <<EOF
     echo "Running second stage of debootstrap..."
     /debootstrap/debootstrap --second-stage
+    echo "Updating package information..."
+    apt-get update
     echo "Installing packages..."
-    apt-get install -y sudo
+    apt-get install -y sudo ca-certificates curl
+    echo "Installing Docker..."
+    install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+    chmod a+r /etc/apt/keyrings/docker.asc
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+    apt-get update
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    echo "Upgrading packages..."
+    apt-get upgrade -y
     echo "Adding user"
     /usr/sbin/useradd -m -s /bin/bash -G sudo -c "Derek" -p "$password" derek
-    echo "Copying files from Derek-OS-Files..."
-    cp -r /mnt/* /
+    echo "Creating directories..."
+    mkdir -p /home/derek/Docker/Volumes
+    echo "Copying Docker Compose file..."
+    cp /mnt/compose.yml /home/derek/Docker/compose.yml
+    echo "Copying files..."
+    cp -r /mnt/Files/* /
 EOF
 sudo umount Derek-OS/mnt
 sudo umount Derek-OS/dev

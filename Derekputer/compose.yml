@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  octoprint:
+    image: octoprint/octoprint
+    container_name: octoprint
+    restart: unless-stopped
+    ports:
+      - 5000:80
