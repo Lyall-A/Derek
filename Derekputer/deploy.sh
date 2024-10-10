@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# NOTE: may be more dependencies needed for building
 if [ -z "$(command -v debootstrap)" ]; then echo "debootstrap is not installed!"; exit 1; fi
 if [ -z "$(command -v aarch64-linux-gnu-gcc)" ]; then echo "aarch64-linux-gnu-gcc is not installed!"; exit 1; fi
 if [ -z "$(command -v flex)" ]; then echo "flex is not installed!"; exit 1; fi
@@ -7,6 +8,7 @@ if [ -z "$(command -v bison)" ]; then echo "bison is not installed!"; exit 1; fi
 if [ -z "$(command -v bc)" ]; then echo "bc is not installed!"; exit 1; fi
 if [ -z "$(command -v swig)" ]; then echo "swig is not installed!"; exit 1; fi
 
+password="Derek1234*"
 # jobs=$(nproc)
 jobs=4
 
@@ -15,7 +17,7 @@ download() {
     dir=$2
     command=$3
     if [ ! -d "$dir" ]; then
-        echo "Building $name..."
+        echo "Downloading $name..."
         $command
     else
         echo "Already downloaded $name"
@@ -42,7 +44,7 @@ build() {
 }
 
 # Download Debian stable
-download "Debian stable" "Derek-OS" "sudo debootstrap --foreign --arch=arm64 stable Derek-OS http://deb.debian.org/debian/"
+download "Derek OS (Debian stable)" "Derek-OS" "sudo debootstrap --foreign --arch=arm64 stable Derek-OS http://deb.debian.org/debian/"
 
 # Download Linux source
 download "Linux" "Linux" "git clone https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git Linux"
@@ -74,6 +76,33 @@ config "U-Boot" "orangepi_zero3_defconfig"
 build "U-Boot" "u-boot-sunxi-with-spl.bin" "BL31=../BL31.bin"
 cp u-boot-sunxi-with-spl.bin ..
 cd ..
+
+# Setup Derek OS
+echo "Setting up Derek OS..."
+sudo systemctl start systemd-binfmt.service
+sudo mount --bind Derek-OS-Files Derek-OS/mnt
+sudo mount --bind /dev Derek-OS/dev
+sudo mount --bind /proc Derek-OS/proc
+sudo mount --bind /sys Derek-OS/sys
+sudo mount --bind /run Derek-OS/run
+sudo chroot Derek-OS /bin/bash <<EOF
+    echo "Updating and upgrading..."
+    apt update
+    apt upgrade
+    echo "Installing packages..."
+    apt install sudo
+    echo "Running second stage of debootstrap..."
+    /debootstrap/debootstrap --second-stage
+    echo "Copying files from Derek-OS-Files..."
+    cp -r /mnt/* /
+    echo "Adding user"
+    /usr/sbin/useradd -m -s /bin/bash -G sudo -c "Derek" -p "$password" derek
+EOF
+sudo umount Derek-OS/mnt
+sudo umount Derek-OS/dev
+sudo umount Derek-OS/proc
+sudo umount Derek-OS/sys
+sudo umount Derek-OS/run
 
 echo "Done!"
 
