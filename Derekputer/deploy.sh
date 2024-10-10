@@ -44,7 +44,7 @@ build() {
 }
 
 # Download Debian stable
-download "Derek OS (Debian stable)" "Derek-OS" "sudo debootstrap --foreign --arch=arm64 stable Derek-OS http://deb.debian.org/debian/"
+download "Derek OS (Debian stable)" "Derek-OS" "sudo debootstrap --foreign --arch=arm64 stable Derek-OS http://deb.debian.org/debian"
 
 # Download Linux source
 download "Linux" "Linux" "git clone https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git Linux"
@@ -80,23 +80,20 @@ cd ..
 # Setup Derek OS
 echo "Setting up Derek OS..."
 sudo systemctl start systemd-binfmt.service
-sudo mount --bind Derek-OS-Files Derek-OS/mnt
+sudo mount --mkdir --bind Derek-OS-Files Derek-OS/mnt
 sudo mount --bind /dev Derek-OS/dev
 sudo mount --bind /proc Derek-OS/proc
 sudo mount --bind /sys Derek-OS/sys
 sudo mount --bind /run Derek-OS/run
 sudo chroot Derek-OS /bin/bash <<EOF
-    echo "Updating and upgrading..."
-    apt update
-    apt upgrade
-    echo "Installing packages..."
-    apt install sudo
     echo "Running second stage of debootstrap..."
     /debootstrap/debootstrap --second-stage
-    echo "Copying files from Derek-OS-Files..."
-    cp -r /mnt/* /
+    echo "Installing packages..."
+    apt-get install -y sudo
     echo "Adding user"
     /usr/sbin/useradd -m -s /bin/bash -G sudo -c "Derek" -p "$password" derek
+    echo "Copying files from Derek-OS-Files..."
+    cp -r /mnt/* /
 EOF
 sudo umount Derek-OS/mnt
 sudo umount Derek-OS/dev
