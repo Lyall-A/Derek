@@ -13,6 +13,11 @@ TODO: description
 * [Z-Axis Camera Mount](./Models/Z-Axis%20Camera%20Mount%20(+-0.2mm).stl)
 * [PET/PEI Magnetic Build Plate](https://www.aliexpress.com/item/1005005536007858.html)
 
+## Derekputer Docker Containers (TODO)
+* OctoPrint
+* Derek Cam
+* Derek PSU
+
 ## Random info
 * Derekputer is a Orange Pi Zero 3 with 4GB RAM
 * Derek Cam is a random ass webcam I got years ago
@@ -23,4 +28,4 @@ TODO: description
 * The AUX fan is slightly fucked, got a free replacement from Creality and within seconds fucked that one too :)
 
 ## TODO's
-* Create Derekputer deployment script
+* Create Derekputer deployment script with software etc
