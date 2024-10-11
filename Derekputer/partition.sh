@@ -1,10 +1,12 @@
 #!/bin/bash
+# Partitions a disk for Derek OS
+
+set -e
 
 if [ -z "$1" ]; then
     echo "No disk has been chosen!"
     exit 1
 fi
-
 disk="/dev/$1"
 
 echo "Starting in 5 seconds..."

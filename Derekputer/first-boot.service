@@ -1,0 +1,10 @@
+[Unit]
+Description=Runs on first boot
+After=multi-user.target
+
+[Service]
+ExecStart=/home/derek/first-boot.sh
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target
