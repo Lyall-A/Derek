@@ -5,7 +5,7 @@ set -e
 
 password="Derek1234*"
 # jobs=$(nproc)
-jobs=4
+jobs=8
 
 download() {
     name=$1
@@ -19,11 +19,25 @@ download() {
     fi
 }
 
+download_git() {
+    name=$1
+    dir=$2
+    repo=$3
+    if [ ! -d "$dir" ]; then
+        echo "Downloading $name..."
+        git clone --depth=1 --single-branch --no-tags $repo $dir
+    else
+        echo "Updating $name..."
+        git -C $dir pull
+    fi
+}
+
 config() {
     name=$1
-    config_name=$2
+    make_args=$2
+    config_name=$3
     echo "Applying $name config..."
-    sudo make -s ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- $config_name
+    sudo make -s CROSS_COMPILE=aarch64-linux-gnu- $make_args $config_name
 }
 
 build() {
@@ -32,9 +46,9 @@ build() {
     make_args=$3
     if [ ! -f "$file" ]; then
         echo "Building $name..."
-        sudo make CROSS_COMPILE=aarch64-linux-gnu- $make_args -j$(jobs)
+        sudo make CROSS_COMPILE=aarch64-linux-gnu- $make_args -j$jobs
     else
-        echo "$name Already built"
+        echo "$name already built"
     fi
 }
 
@@ -50,39 +64,39 @@ if [ -z "$(command -v swig)" ]; then echo "swig is not installed!"; exit 1; fi
 download "Derek OS (Debian stable)" "Debian" "sudo debootstrap --foreign --arch=arm64 stable Debian http://deb.debian.org/debian"
 
 # Download Linux source
-download "Linux" "Linux" "git clone https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git Linux"
+download_git "Linux" "Linux" "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
 
 # Download ARM Trusted Firmware source
-download "ARM Trusted Firmware" "ARM-Trusted-Firmware" "git clone https://github.com/ARM-software/arm-trusted-firmware.git ARM-Trusted-Firmware"
+download_git "ARM Trusted Firmware" "ARM-Trusted-Firmware" "https://github.com/ARM-software/arm-trusted-firmware.git"
 
 # Download U-Boot source
-download "U-Boot" "U-Boot" "git clone https://github.com/u-boot/u-boot.git U-Boot"
+download_git "U-Boot" "U-Boot" "https://github.com/u-boot/u-boot.git"
 
 # Build required Linux files
-cd Linux
-config "Linux" "defconfig" # NOTE: may need adjusted slightly, or just copied from armbian
-build "Linux DTB's" "arch/arm64/boot/Image" "Image"
-cp arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb ..
-build "Linux image" "arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb" "dtbs"
+cd ./Linux
+config "Linux" "ARCH=arm64" "defconfig" # NOTE: may need adjusted slightly, or just copied from armbian
+build "Linux Image" "arch/arm64/boot/Image" "ARCH=arm64 Image"
 cp arch/arm64/boot/Image ..
+build "Linux DTB's" "arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb" "ARCH=arm64 dtbs"
+cp arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb ..
 cd ..
 
 # Build required ARM Trusted Firmware files
-cd ARM-Trusted-Firmware
+cd ./ARM-Trusted-Firmware
 build "ARM Trusted Firmware" "build/sun50i_a64/release/bl31.bin" "PLAT=sun50i_a64 DEBUG=0 bl31"
 cp build/sun50i_a64/release/bl31.bin ../BL31.bin
 cd ..
 
 # Build required U-Boot files
-cd U-Boot
+cd ./U-Boot
 config "U-Boot" "orangepi_zero3_defconfig"
 build "U-Boot" "u-boot-sunxi-with-spl.bin" "BL31=../BL31.bin"
 cp u-boot-sunxi-with-spl.bin ..
 cd ..
 
 # Setup Derek OS
-sudo mkdir -p Derek-OS
-cd Derek-OS
+sudo mkdir ./Derek-OS
+cd ./Derek-OS
 echo "Copying Debian files to Derek OS..."
 sudo cp -r ../Debian/* .
 
@@ -90,22 +104,22 @@ echo "Starting binfmt..."
 sudo systemctl start systemd-binfmt.service
 
 echo "Mounting..."
-sudo mount --mkdir --bind ../ mnt
-sudo mount --bind /dev dev
-sudo mount --bind /proc proc
-sudo mount --bind /sys sys
-sudo mount --bind /run run
+sudo mount --mkdir --bind ../ ./mnt
+sudo mount --bind /dev ./dev
+sudo mount --bind /proc ./proc
+sudo mount --bind /sys ./sys
+sudo mount --bind /run ./run
 
 echo "Running setup script in chroot..."
-sudo chown +x ../setup.sh
+sudo chmod +x ../setup.sh
 sudo chroot . /mnt/setup.sh
 
 echo "Unmounting..."
-sudo umount mnt
-sudo umount dev
-sudo umount proc
-sudo umount sys
-sudo umount run
+sudo umount ./mnt
+sudo umount ./dev
+sudo umount ./proc
+sudo umount ./sys
+sudo umount ./run
 
 cd ..
 

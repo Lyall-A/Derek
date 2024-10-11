@@ -31,14 +31,16 @@ echo "Adding user"
 #echo "Creating directories..."
 
 echo "Copying necessary files..."
-cp /mnt/compose.yml /home/derek/compose.yml
+cp /mnt/docker-compose.yml /home/derek/docker-compose.yml
 cp /mnt/first-boot.sh /home/derek/first-boot.sh
 cp /mnt/first-boot.service /etc/systemd/system/first-boot.service
-chown +x /home/derek/first-boot.sh
+chmod +x /home/derek/first-boot.sh
 
 echo "Enabling services..."
-systemctl enable docker.service
-systemctl enable first-boot.service
+ln -s /lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service
+ln -s /etc/systemd/system/first-boot.service /etc/systemd/system/multi-user.target.wants/first-boot.service
 
-echo "Copying files..."
-cp -r /mnt/Files/* /
+if [ -d "/mnt/files" ]; then
+    echo "Copying files..."
+    cp -r /mnt/Files/* /
+fi

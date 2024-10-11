@@ -10,6 +10,6 @@ fi
 echo "Setting up containers..."
 docker compose -f /home/derek/docker-compose.yml up
 
-echo "First boot finished"
-systemctl disable first-boot.service
 touch /home/derek/.first-boot
+systemctl disable first-boot.service
+echo "First boot complete"
