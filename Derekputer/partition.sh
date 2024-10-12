@@ -37,6 +37,6 @@ echo "Copying Derek OS to root partition..."
 sudo cp -r ./Derek-OS/* ./Mount
 
 echo "Copying files to boot partition..."
-sudo cp ./Image ./Mount/boot
+sudo cp ./Image.gz ./Mount/boot
 sudo cp ./sun50i-h618-orangepi-zero3.dtb ./Mount/boot
 sudo cp ./u-boot-sunxi-with-spl.bin ./Mount/boot

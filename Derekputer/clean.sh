@@ -7,13 +7,18 @@ sudo umount ./Derek-OS/sys
 sudo umount ./Derek-OS/run
 sudo umount ./Mount/boot
 sudo umount ./Mount
-sudo rm -rf ./Debian
-sudo rm -rf ./Linux
-sudo rm -rf ./ARM-Trusted-Firmware
-sudo rm -rf ./U-Boot
-sudo rm -rf ./Derek-OS
-sudo rm -rf ./Mount
+sudo umount ./Test/Mount/boot
+sudo umount ./Test/Mount
+sudo rm -r ./Debian
+sudo rm -r ./Linux
+sudo rm -r ./ARM-Trusted-Firmware
+sudo rm -r ./U-Boot
+sudo rm -r ./Derek-OS
+sudo rm -r ./Mount
+sudo rm -r ./Test/Mount
 sudo rm ./sun50i-h618-orangepi-zero3.dtb
-sudo rm ./Image
+sudo rm ./Image.gz
 sudo rm ./BL31.bin
 sudo rm ./u-boot-sunxi-with-spl.bin
+sudo rm ./Test/boot.img
+sudo rm ./Test/root.img

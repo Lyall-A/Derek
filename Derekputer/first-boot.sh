@@ -1,6 +1,8 @@
 #!/bin/bash
 # Runs on first boot
 
+set -e
+
 if [ -f "/home/derek/.first-boot" ]; then
     echo "Not first boot!"
     systemctl disable first-boot.service

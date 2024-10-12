@@ -46,7 +46,7 @@ build() {
     make_args=$3
     if [ ! -f "$file" ]; then
         echo "Building $name..."
-        sudo make CROSS_COMPILE=aarch64-linux-gnu- $make_args -j$jobs
+        sudo make $make_args -j$jobs
     else
         echo "$name already built"
     fi
@@ -64,7 +64,7 @@ if [ -z "$(command -v swig)" ]; then echo "swig is not installed!"; exit 1; fi
 download "Derek OS (Debian stable)" "Debian" "sudo debootstrap --foreign --arch=arm64 stable Debian http://deb.debian.org/debian"
 
 # Download Linux source
-download_git "Linux" "Linux" "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
+download_git "Linux" "Linux" "--branch linux-rolling-stable https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
 
 # Download ARM Trusted Firmware source
 download_git "ARM Trusted Firmware" "ARM-Trusted-Firmware" "https://github.com/ARM-software/arm-trusted-firmware.git"
@@ -74,9 +74,9 @@ download_git "U-Boot" "U-Boot" "https://github.com/u-boot/u-boot.git"
 
 # Build required Linux files
 cd ./Linux
-config "Linux" "ARCH=arm64" "defconfig" # NOTE: may need adjusted slightly, or just copied from armbian
-build "Linux Image" "arch/arm64/boot/Image" "ARCH=arm64 Image"
-cp arch/arm64/boot/Image ..
+config "Linux" "ARCH=arm64" "defconfig" # TODO: need to make custom config or steal somewhere else
+build "Linux Image" "arch/arm64/boot/Image.gz" "ARCH=arm64 Image.gz"
+cp arch/arm64/boot/Image.gz ../Image.gz
 build "Linux DTB's" "arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb" "ARCH=arm64 dtbs"
 cp arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb ../sun50i-h618-orangepi-zero3.dtb
 cd ..
@@ -95,6 +95,14 @@ cp u-boot-sunxi-with-spl.bin ../u-boot-sunxi-with-spl.bin
 cd ..
 
 # Setup Derek OS
+if [ -d "./Derek-OS" ]; then
+    sudo umount ./Derek-OS/mnt
+    sudo umount ./Derek-OS/dev
+    sudo umount ./Derek-OS/proc
+    sudo umount ./Derek-OS/sys
+    sudo umount ./Derek-OS/run
+    sudo rm -r ./Derek-OS
+fi
 sudo mkdir ./Derek-OS
 cd ./Derek-OS
 echo "Copying Debian files to Derek OS..."
