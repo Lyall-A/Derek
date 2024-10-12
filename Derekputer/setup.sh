@@ -29,6 +29,10 @@ echo "Setting up users..."
 echo "derek:$password" | /usr/sbin/chpasswd
 echo "root:$root_password" | /usr/sbin/chpasswd
 
+echo "Fixing sudo permissions..."
+chown root:root /usr/bin/sudo
+chmod 4755 /usr/bin/sudo
+
 #echo "Creating directories..."
 
 echo "Copying necessary files..."

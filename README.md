@@ -29,3 +29,6 @@ TODO: description
 
 ## TODO's
 * Create Derekputer deployment script with software etc
+    * Fix `iptables: Failed to initialize nft: Protocol not supported`
+    * Fix `sudo: /usr/bin/sudo must be owned by uid 0 and have the setuid bit set` (when user isn't root)
+    * Fix `ping: socket: Address family not supported by protocol` (when user isn't root)
