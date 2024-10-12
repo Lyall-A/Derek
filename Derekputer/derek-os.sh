@@ -78,7 +78,7 @@ config "Linux" "ARCH=arm64" "defconfig" # NOTE: may need adjusted slightly, or j
 build "Linux Image" "arch/arm64/boot/Image" "ARCH=arm64 Image"
 cp arch/arm64/boot/Image ..
 build "Linux DTB's" "arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb" "ARCH=arm64 dtbs"
-cp arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb ..
+cp arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb ../sun50i-h618-orangepi-zero3.dtb
 cd ..
 
 # Build required ARM Trusted Firmware files
@@ -91,7 +91,7 @@ cd ..
 cd ./U-Boot
 config "U-Boot" "orangepi_zero3_defconfig"
 build "U-Boot" "u-boot-sunxi-with-spl.bin" "BL31=../BL31.bin"
-cp u-boot-sunxi-with-spl.bin ..
+cp u-boot-sunxi-with-spl.bin ../u-boot-sunxi-with-spl.bin
 cd ..
 
 # Setup Derek OS
