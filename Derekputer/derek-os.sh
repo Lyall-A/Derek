@@ -46,7 +46,7 @@ build() {
     make_args=$3
     if [ ! -f "$file" ]; then
         echo "Building $name..."
-        sudo make $make_args -j$jobs
+        sudo make CROSS_COMPILE=aarch64-linux-gnu- $make_args -j$jobs
     else
         echo "$name already built"
     fi
@@ -104,32 +104,29 @@ if [ -d "./Derek-OS" ]; then
     sudo rm -r ./Derek-OS
 fi
 sudo mkdir ./Derek-OS
-cd ./Derek-OS
 echo "Copying Debian files to Derek OS..."
-sudo cp -r ../Debian/* .
+sudo cp -r ./Debian/* ./Derek-OS
 
 echo "Starting binfmt..."
 sudo systemctl start systemd-binfmt.service
 
 echo "Mounting..."
-sudo mount --mkdir --bind ../ ./mnt
-sudo mount --bind /dev ./dev
-sudo mount --bind /proc ./proc
-sudo mount --bind /sys ./sys
-sudo mount --bind /run ./run
+sudo mount --mkdir --bind ./ ./Derek-OS/mnt
+sudo mount --bind /dev ./Derek-OS/dev
+sudo mount --bind /proc ./Derek-OS/proc
+sudo mount --bind /sys ./Derek-OS/sys
+sudo mount --bind /run ./Derek-OS/run
 
 echo "Running setup script in chroot..."
-sudo chmod +x ../setup.sh
+sudo chmod +x ./setup.sh
 sudo chroot . /mnt/setup.sh
 
 echo "Unmounting..."
-sudo umount ./mnt
-sudo umount ./dev
-sudo umount ./proc
-sudo umount ./sys
-sudo umount ./run
-
-cd ..
+sudo umount ./Derek-OS/mnt
+sudo umount ./Derek-OS/dev
+sudo umount ./Derek-OS/proc
+sudo umount ./Derek-OS/sys
+sudo umount ./Derek-OS/run
 
 echo "Done!"
 
