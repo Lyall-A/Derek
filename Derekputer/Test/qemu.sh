@@ -8,6 +8,6 @@ sudo qemu-system-aarch64 \
     -bios ./u-boot.bin \
     -dtb ./qemu.dtb \
     -kernel ../Image.gz \
-    -append "root=/dev/vda rw console=ttyAMA0 loglevel=3 quiet splash" \
+    -append "root=/dev/vda rw console=ttyAMA0" \
     -drive file=./derek-os.img,if=none,format=raw,id=hd0 \
     -device virtio-blk-device,drive=hd0

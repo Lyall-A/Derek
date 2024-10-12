@@ -25,7 +25,8 @@ echo "Installing Docker..."
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 echo "Adding user"
-/usr/sbin/useradd -m -s /bin/bash -G sudo -c "Derek" -p "$password" derek
+/usr/sbin/useradd -m -s /bin/bash -G sudo -c "Derek" derek
+echo "derek:$password" | /usr/sbin/chpasswd
 
 #echo "Creating directories..."
 
