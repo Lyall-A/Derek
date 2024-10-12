@@ -61,12 +61,12 @@ if [ -z "$(command -v bc)" ]; then echo "bc is not installed!"; exit 1; fi
 if [ -z "$(command -v swig)" ]; then echo "swig is not installed!"; exit 1; fi
 
 if [ -d "./Derek-OS" ]; then
-    echo "Derek OS already exists, unmount and delete it first"
-    exit 1
+    echo "Derek OS already exists, you should probably delete it first!"
+    sleep 2
 fi
 
 # Download Debian stable
-download "Derek OS (Debian stable)" "Debian" "sudo debootstrap --foreign --arch=arm64 stable Debian http://deb.debian.org/debian"
+download "Derek OS (Debian stable)" "Debian" "sudo debootstrap --foreign --arch=arm64 stable Debian http://deb.debian.org/debian" # ca-certificates and curl is required for the Docker install
 
 # Download Linux source
 download_git "Linux" "Linux" "--branch linux-rolling-stable https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
@@ -100,31 +100,42 @@ cp u-boot-sunxi-with-spl.bin ../u-boot-sunxi-with-spl.bin
 cd ..
 
 # Setup Derek OS
-sudo mkdir ./Derek-OS
+sudo mkdir -p ./Derek-OS
+sudo mkdir -p ./Derek-OS/Derek-OS-Temp
+
 echo "Copying Debian files to Derek OS..."
 sudo cp -r ./Debian/* ./Derek-OS
+
+echo "Copying necessary files to Derek OS..."
+sudo cp -r ./Copy ./Derek-OS/Derek-OS-Temp
+sudo cp ./apt-packages.txt ./Derek-OS/Derek-OS-Temp
+sudo cp ./setup.sh ./Derek-OS/Derek-OS-Temp
+sudo cp ./hostname ./Derek-OS/Derek-OS-Temp
+sudo cp ./fstab ./Derek-OS/Derek-OS-Temp
+sudo cp ./docker-compose.yml ./Derek-OS/Derek-OS-Temp
+sudo cp ./first-boot.sh ./Derek-OS/Derek-OS-Temp
+sudo cp ./first-boot.service ./Derek-OS/Derek-OS-Temp
 
 echo "Starting binfmt..."
 sudo systemctl start systemd-binfmt.service
 
 echo "Mounting..."
-sudo mount --mkdir --bind ./ ./Derek-OS/mnt
-sudo mount -t proc /proc ./Derek-OS/proc
-sudo mount --rbind /dev ./Derek-OS/dev
-sudo mount --rbind /sys ./Derek-OS/sys
+sudo mount --bind /proc ./Derek-OS/proc
+sudo mount --bind /dev ./Derek-OS/dev
+sudo mount --bind /sys ./Derek-OS/sys
 
 echo "Running second stage of debootstrap..."
-sudo chroot . /debootstrap/debootstrap --second-stage --include=$(cat "apt-packages.txt"),ca-certificates,curl # ca-certificates and curl is required for the Docker install
+sudo chroot ./Derek-OS /debootstrap/debootstrap --second-stage
 
 echo "Running setup script in chroot..."
-sudo chmod +x ./setup.sh
-sudo chroot . /mnt/setup.sh
+sudo chmod +x ./Derek-OS/Derek-OS-Temp/setup.sh
+sudo chroot ./Derek-OS /Derek-OS-Temp/setup.sh
 
 echo "Unmounting..."
-sudo umount ./Derek-OS/mnt
-sudo umount ./Derek-OS/proc
-sudo umount ./Derek-OS/sys
-sudo umount ./Derek-OS/dev
+# sudo umount ./Derek-OS/mnt
+sudo umount -l ./Derek-OS/proc
+sudo umount -l ./Derek-OS/dev
+sudo umount -l ./Derek-OS/sys
 
 echo "Done!"
 

@@ -3,16 +3,16 @@
 
 set -e
 
-password=Derek1234*
+password="Derek1234*"
+root_password="Root1234*"
 
-echo "Running second stage of debootstrap..."
-/debootstrap/debootstrap --second-stage --include=sudo,ca-certificates,curl
+echo "Installing packages..."
+apt install -y curl ca-certificates sudo network-manager
 
-echo "Updating package information..."
-apt update
-
-# echo "Installing packages..."
-# apt install -y sudo ca-certificates curl
+if [[ -d "/Derek-OS-Temp/apt-packages.txt" && "$(cat /Derek-OS-Temp/apt-packages.txt)" ]]; then
+    echo "Installing optional packages..."
+    apt install -y $(cat /Derek-OS-Temp/apt-packages.txt)
+fi
 
 echo "Adding Docker to APT repositories..."
 install -m 0755 -d /etc/apt/keyrings
@@ -24,23 +24,35 @@ apt update
 echo "Installing Docker..."
 apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-echo "Adding user..."
+echo "Setting up users..."
 /usr/sbin/useradd -m -s /bin/bash -G sudo -c "Derek" derek
 echo "derek:$password" | /usr/sbin/chpasswd
+echo "root:$root_password" | /usr/sbin/chpasswd
 
 #echo "Creating directories..."
 
 echo "Copying necessary files..."
-cp /mnt/docker-compose.yml /home/derek/docker-compose.yml
-cp /mnt/first-boot.sh /home/derek/first-boot.sh
-cp /mnt/first-boot.service /etc/systemd/system/first-boot.service
+mv /Derek-OS-Temp/hostname /etc/hostname
+mv /Derek-OS-Temp/fstab /etc/fstab
+mv /Derek-OS-Temp/docker-compose.yml /home/derek/docker-compose.yml
+mv /Derek-OS-Temp/first-boot.sh /home/derek/first-boot.sh
+mv /Derek-OS-Temp/first-boot.service /etc/systemd/system/first-boot.service
 chmod +x /home/derek/first-boot.sh
 
 echo "Enabling services..."
-ln -s /lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service
-ln -s /etc/systemd/system/first-boot.service /etc/systemd/system/multi-user.target.wants/first-boot.service
+if [ ! -f "/etc/systemd/system/multi-user.target.wants/NetworkManager.service" ]; then ln -s /lib/systemd/system/NetworkManager.service /etc/systemd/system/multi-user.target.wants/NetworkManager.service; fi
+if [ ! -f "/etc/systemd/system/multi-user.target.wants/docker.service" ]; then ln -s /lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service; fi
+if [ ! -f "/etc/systemd/system/multi-user.target.wants/first-boot.service" ]; then ln -s /etc/systemd/system/first-boot.service /etc/systemd/system/multi-user.target.wants/first-boot.service; fi
 
-if [ -d "/mnt/Files" ]; then
+if [[ -d "/Derek-OS-Temp/Copy" && "$(ls -A /Derek-OS-Temp/Copy)" ]]; then
     echo "Copying files..."
-    cp -r /mnt/Files/* /
+    mv /Derek-OS-Temp/Copy/* /home/derek
 fi
+
+echo "Setting up swap..."
+fallocate -l 1G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+
+echo "Setup done, removing temp directory..."
+rm -r /Derek-OS-Temp
