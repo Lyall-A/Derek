@@ -1,10 +1,9 @@
 #!/bin/bash
 
 sudo umount ./Derek-OS/mnt
-sudo umount ./Derek-OS/dev
 sudo umount ./Derek-OS/proc
+sudo umount ./Derek-OS/dev
 sudo umount ./Derek-OS/sys
-sudo umount ./Derek-OS/run
 # sudo umount ./Mount/boot
 sudo umount ./Mount
 # sudo umount ./Test/Mount/boot

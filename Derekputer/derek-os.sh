@@ -60,6 +60,11 @@ if [ -z "$(command -v bison)" ]; then echo "bison is not installed!"; exit 1; fi
 if [ -z "$(command -v bc)" ]; then echo "bc is not installed!"; exit 1; fi
 if [ -z "$(command -v swig)" ]; then echo "swig is not installed!"; exit 1; fi
 
+if [ -d "./Derek-OS" ]; then
+    echo "Derek OS already exists, unmount and delete it first"
+    exit 1
+fi
+
 # Download Debian stable
 download "Derek OS (Debian stable)" "Debian" "sudo debootstrap --foreign --arch=arm64 stable Debian http://deb.debian.org/debian"
 
@@ -95,14 +100,6 @@ cp u-boot-sunxi-with-spl.bin ../u-boot-sunxi-with-spl.bin
 cd ..
 
 # Setup Derek OS
-if [ -d "./Derek-OS" ]; then
-    sudo umount ./Derek-OS/mnt
-    sudo umount ./Derek-OS/dev
-    sudo umount ./Derek-OS/proc
-    sudo umount ./Derek-OS/sys
-    sudo umount ./Derek-OS/run
-    sudo rm -r ./Derek-OS
-fi
 sudo mkdir ./Derek-OS
 echo "Copying Debian files to Derek OS..."
 sudo cp -r ./Debian/* ./Derek-OS
@@ -112,10 +109,12 @@ sudo systemctl start systemd-binfmt.service
 
 echo "Mounting..."
 sudo mount --mkdir --bind ./ ./Derek-OS/mnt
-sudo mount --bind /dev ./Derek-OS/dev
-sudo mount --bind /proc ./Derek-OS/proc
-sudo mount --bind /sys ./Derek-OS/sys
-sudo mount --bind /run ./Derek-OS/run
+sudo mount -t proc /proc ./Derek-OS/proc
+sudo mount --rbind /dev ./Derek-OS/dev
+sudo mount --rbind /sys ./Derek-OS/sys
+
+echo "Running second stage of debootstrap..."
+sudo chroot . /debootstrap/debootstrap --second-stage --include=$(cat "apt-packages.txt"),ca-certificates,curl # ca-certificates and curl is required for the Docker install
 
 echo "Running setup script in chroot..."
 sudo chmod +x ./setup.sh
@@ -123,10 +122,9 @@ sudo chroot . /mnt/setup.sh
 
 echo "Unmounting..."
 sudo umount ./Derek-OS/mnt
-sudo umount ./Derek-OS/dev
 sudo umount ./Derek-OS/proc
 sudo umount ./Derek-OS/sys
-sudo umount ./Derek-OS/run
+sudo umount ./Derek-OS/dev
 
 echo "Done!"
 
