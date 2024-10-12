@@ -52,7 +52,7 @@ fi
 echo "Setting up swap..."
 fallocate -l 1G /swapfile
 chmod 600 /swapfile
-mkswap /swapfile
+/usr/sbin/mkswap /swapfile
 
 echo "Setup done, removing temp directory..."
 rm -r /Derek-OS-Temp
