@@ -17,6 +17,8 @@ sudo cp -r ../Derek-OS/* ./Mount
 sudo cp ../Image.gz ./Mount/boot
 sudo cp ./qemu.dtb ./Mount/boot
 sudo cp ./u-boot.bin ./Mount/boot/u-boot.bin
+
+sudo umount ./Mount
 # sudo cp ../sun50i-h618-orangepi-zero3.dtb ./Mount/boot
 # sudo cp ../u-boot-sunxi-with-spl.bin ./Mount/boot
 

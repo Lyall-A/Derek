@@ -133,6 +133,7 @@ sudo chroot ./Derek-OS /Derek-OS-Temp/setup.sh
 
 echo "Unmounting..."
 # sudo umount ./Derek-OS/mnt
+# NOTE: might fry your host install, unsure :)
 sudo umount -l ./Derek-OS/proc
 sudo umount -l ./Derek-OS/dev
 sudo umount -l ./Derek-OS/sys

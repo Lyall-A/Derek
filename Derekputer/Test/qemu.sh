@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo mount ./derek-os.img ./Mount
+
 sudo qemu-system-aarch64 \
     -M virt \
     -cpu cortex-a57 \
@@ -11,3 +13,5 @@ sudo qemu-system-aarch64 \
     -append "root=/dev/vda rw console=ttyAMA0" \
     -drive file=./derek-os.img,if=none,format=raw,id=hd0 \
     -device virtio-blk-device,drive=hd0
+
+sudo umount ./Mount

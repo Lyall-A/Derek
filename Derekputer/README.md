@@ -1,0 +1,38 @@
+# Derekputer
+
+## Derek OS
+Run `chmod +x ./derek-os.sh && ./derek-os.sh` to install Derek OS, this will download and compile:
+
+* Debian stable
+  * Installed via debootstrap
+* Linux
+  * Kernel for Debian
+* ARM Trusted Firmware
+  * Creates the BL31 binary required for for U-Boot to compile
+* U-Boot
+  * Bootloader for Derekputer
+
+along with files and scripts for full automatic setup
+
+## Partitioning
+Install Derek OS then run `chmod +x ./partition.sh && ./partition.sh <disk name>` to partition Derek OS to disk (SD card), this will:
+
+* Create a MBR label
+* Create a ext4 partition starting at 1MiB
+* Create ext4 filesystem for the ext4 partition
+* Write zeros 8KiB-1MiB
+* Flash U-Boot bootloader at 8KiB
+* Mount the ext4 partition at ./Mount
+* Copy Derek OS to the ext4 partition
+* Copy required files to boot directory inside the ext4 partition
+
+## Testing
+After installing Derek OS you can go into the Test directory then run `chmod +x ./create-img.sh && ./create-img.sh` and `chmod +x ./qemu.sh && ./qemu.sh` to boot Derek OS under QEMU (hopefully)
+
+## Other
+* `clean.sh` will remove most directories and files created during downloading/compiling Derek OS
+* `setup.sh` is run during the setup of Derek OS in a chroot environment
+* `first-boot.sh` is run the first time Derek OS is booted
+* `Test/qemu-dtb.sh` will dump the DTB used for QEMU
+* `Test/u-boot.sh` will compile U-Boot for QEMU
+* `Copy` is where directories and files can be placed that will get copied over to the the home directory on Derek OS during install

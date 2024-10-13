@@ -58,5 +58,7 @@ fallocate -l 1G /swapfile
 chmod 600 /swapfile
 /usr/sbin/mkswap /swapfile
 
-echo "Setup done, removing temp directory..."
+echo "Removing temp directory..."
 rm -r /Derek-OS-Temp
+
+echo "Done!"

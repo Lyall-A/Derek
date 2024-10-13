@@ -21,14 +21,14 @@ TODO: description
 ## Random info
 * Derekputer is a Orange Pi Zero 3 with 4GB RAM
 * Derek Cam is a random ass webcam I got years ago
-* I want to change the message that shows on the LCD during boot but it seems to be in the binary at [Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a](./Derek-Firmware/Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a)
 * The 24v hotend fan is replaced with a 5v Noctua fan connected to BLTouch power connector
-* The BLTouch connector on the mainboard is mostly soldered, wires being soldered from the connector pins to 2 2-pin terminal blocks
+* The BLTouch connector on the mainboard is mostly soldered, wires being soldered from the connector pins on the back of the mainboard to 2 2-pin terminal blocks
 * The LCD cable ground wire is fucked from me and a knife, I didn't add any more wire when resoldering so the ground wire specifically is shorter
 * The AUX fan is slightly fucked, got a free replacement from Creality and within seconds fucked that one too :)
 
 ## TODO's
+* Change the popup that shows on the LCD during boot, seems to be in the binary at [Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a](https://github.com/Lyall-A/Derek-Firmware/tree/main/Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a)
 * Create Derekputer deployment script with software etc
-    * Fix `iptables: Failed to initialize nft: Protocol not supported`
-    * Fix `sudo: /usr/bin/sudo must be owned by uid 0 and have the setuid bit set` (when user isn't root)
-    * Fix `ping: socket: Address family not supported by protocol` (when user isn't root)
+  * Fix `iptables: Failed to initialize nft: Protocol not supported`
+  * Fix `sudo: /usr/bin/sudo must be owned by uid 0 and have the setuid bit set` (when user isn't root)
+  * Fix `ping: socket: Address family not supported by protocol` (when user isn't root)
