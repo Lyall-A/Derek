@@ -6,6 +6,9 @@ set -e
 password="Derek1234*"
 root_password="Root1234*"
 
+echo "Running second stage of debootstrap..."
+/debootstrap/debootstrap --second-stage
+
 echo "Installing packages..."
 apt install -y curl ca-certificates sudo network-manager
 
@@ -43,10 +46,13 @@ mv /Derek-OS-Temp/first-boot.sh /home/derek/first-boot.sh
 mv /Derek-OS-Temp/first-boot.service /etc/systemd/system/first-boot.service
 chmod +x /home/derek/first-boot.sh
 
-echo "Enabling services..."
-if [ ! -f "/etc/systemd/system/multi-user.target.wants/NetworkManager.service" ]; then ln -s /lib/systemd/system/NetworkManager.service /etc/systemd/system/multi-user.target.wants/NetworkManager.service; fi
-if [ ! -f "/etc/systemd/system/multi-user.target.wants/docker.service" ]; then ln -s /lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service; fi
-if [ ! -f "/etc/systemd/system/multi-user.target.wants/first-boot.service" ]; then ln -s /etc/systemd/system/first-boot.service /etc/systemd/system/multi-user.target.wants/first-boot.service; fi
+echo "Enabling first boot service..."
+ln -s /etc/systemd/system/first-boot.service /etc/systemd/system/multi-user.target.wants/first-boot.service
+
+# echo "Enabling services..."
+# if [ ! -f "/etc/systemd/system/multi-user.target.wants/NetworkManager.service" ]; then ln -s /lib/systemd/system/NetworkManager.service /etc/systemd/system/multi-user.target.wants/NetworkManager.service; fi
+# if [ ! -f "/etc/systemd/system/multi-user.target.wants/docker.service" ]; then ln -s /lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service; fi
+# if [ ! -f "/etc/systemd/system/multi-user.target.wants/first-boot.service" ]; then ln -s /etc/systemd/system/first-boot.service /etc/systemd/system/multi-user.target.wants/first-boot.service; fi
 
 if [[ -d "/Derek-OS-Temp/Copy" && "$(ls -A /Derek-OS-Temp/Copy)" ]]; then
     echo "Copying files..."
@@ -61,4 +67,4 @@ chmod 600 /swapfile
 echo "Removing temp directory..."
 rm -r /Derek-OS-Temp
 
-echo "Done!"
+echo "Finished setup in chroot!"

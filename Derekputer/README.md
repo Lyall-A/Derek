@@ -1,7 +1,7 @@
 # Derekputer
 
 ## Derek OS
-Run `chmod +x ./derek-os.sh && ./derek-os.sh` to install Derek OS, this will download and compile:
+Run `chmod +x ./derek-os.sh && ./derek-os.sh` to install Derek OS, this will download and install/compile:
 
 * Debian stable
   * Installed via debootstrap
@@ -18,8 +18,8 @@ along with files and scripts for full automatic setup
 Install Derek OS then run `chmod +x ./partition.sh && ./partition.sh <disk name>` to partition Derek OS to disk (SD card), this will:
 
 * Create a MBR label
-* Create a FAT32 partition (boot) starting at 1MB
-* Create a ext4 partition (root) starting at 17MB
+* Create a 16MB FAT32 partition (boot) starting at 1MB
+* Create a ext4 partition (root) starting at 17MB filling the rest of the disk
 * Write zeros 8KiB-1MB
 * Flash U-Boot bootloader at 8KB
 * Mount the root partition at ./Mount
