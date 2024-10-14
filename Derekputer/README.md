@@ -6,9 +6,9 @@ Run `chmod +x ./derek-os.sh && ./derek-os.sh` to install Derek OS, this will dow
 * Debian stable
   * Installed via debootstrap
 * Linux
-  * Kernel for Debian
+  * Linux Image and DTB's for Derek OS
 * ARM Trusted Firmware
-  * Creates the BL31 binary required for for U-Boot to compile
+  * Creates the BL31 binary required for U-Boot to compile
 * U-Boot
   * Bootloader for Derekputer
 
@@ -18,13 +18,14 @@ along with files and scripts for full automatic setup
 Install Derek OS then run `chmod +x ./partition.sh && ./partition.sh <disk name>` to partition Derek OS to disk (SD card), this will:
 
 * Create a MBR label
-* Create a ext4 partition starting at 1MiB
-* Create ext4 filesystem for the ext4 partition
-* Write zeros 8KiB-1MiB
-* Flash U-Boot bootloader at 8KiB
-* Mount the ext4 partition at ./Mount
-* Copy Derek OS to the ext4 partition
-* Copy required files to boot directory inside the ext4 partition
+* Create a FAT32 partition (boot) starting at 1MB
+* Create a ext4 partition (root) starting at 17MB
+* Write zeros 8KiB-1MB
+* Flash U-Boot bootloader at 8KB
+* Mount the root partition at ./Mount
+* Mount the boot partition at ./Mount/boot
+* Copy Derek OS to the root partition
+* Copy required files to the boot partiion
 
 ## Testing
 After installing Derek OS you can go into the Test directory then run `chmod +x ./create-img.sh && ./create-img.sh` and `chmod +x ./qemu.sh && ./qemu.sh` to boot Derek OS under QEMU (hopefully)
