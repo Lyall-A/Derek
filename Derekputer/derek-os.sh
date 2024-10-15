@@ -75,8 +75,8 @@ download_git "U-Boot" "U-Boot" "https://github.com/u-boot/u-boot.git"
 # Build required Linux files
 cd ./Linux
 config "Linux" "ARCH=arm64" "defconfig" # TODO: maybe make custom config or steal somewhere else
-build "Linux Image" "ARCH=arm64 Image.gz"
-cp arch/arm64/boot/Image.gz ../Image.gz
+build "Linux Image" "ARCH=arm64 Image"
+cp arch/arm64/boot/Image ../Image
 build "Linux DTB's" "ARCH=arm64 dtbs"
 cp arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb ../sun50i-h618-orangepi-zero3.dtb
 cd ..
