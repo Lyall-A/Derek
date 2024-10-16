@@ -13,8 +13,8 @@ echo "Starting in 5 seconds..."
 sleep 5
 
 echo "Unmounting $disk..."
-sudo umount ${disk}1
-# sudo umount "${disk}2"
+sudo umount ${disk}1 || true
+# sudo umount "${disk}2" || true
 
 echo "Partitioning $disk..."
 sudo parted $disk --script mklabel msdos
@@ -29,8 +29,9 @@ sudo mkfs.ext4 -F ${disk}1
 
 echo "Flashing U-Boot with SPL..."
 sudo dd if=/dev/zero of=$disk bs=1024 count=1023 seek=1
-sudo dd if=u-boot-sunxi-with-spl.bin of=$disk bs=1024 seek=8
-sync
+sudo dd if=./u-boot-sunxi-with-spl.bin of=$disk bs=1024 seek=8
+# sudo dd if=./sunxi-spl.bin of=$disk bs=1024 seek=8
+# sudo dd if=./u-boot.itb of=$disk bs=1024 seek=8
 
 echo "Mounting $disk..."
 sudo mount --mkdir ${disk}1 ./Mount
@@ -42,11 +43,13 @@ sudo cp -r ./Derek-OS/* ./Mount
 
 echo "Copying files to boot..."
 sudo mkdir -p ./Mount/boot
+sudo cp ./boot.scr ./Mount/boot
 sudo cp ./Image ./Mount/boot
 sudo cp ./sun50i-h618-orangepi-zero3.dtb ./Mount/boot
 sudo cp ./u-boot-sunxi-with-spl.bin ./Mount/boot
 
 echo "Unmounting $disk..."
 sudo umount ${disk}1
+# sudo umount ${disk}2
 
 echo "Done!"

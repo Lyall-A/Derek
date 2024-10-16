@@ -6,8 +6,8 @@ Run `chmod +x ./derek-os.sh && ./derek-os.sh` to install Derek OS, this will dow
 * Debian stable
   * Installed via debootstrap
 * Linux
-  * Linux Image and DTB's for Derek OS
-* ARM Trusted Firmware
+  * Linux Image, Modules and DTB for Derek OS
+* Trusted Firmware A
   * Creates the BL31 binary required for U-Boot to compile
 * U-Boot
   * Bootloader for Derekputer
