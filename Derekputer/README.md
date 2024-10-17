@@ -1,12 +1,12 @@
 # Derekputer
 
 ## Derek OS
-Run `chmod +x ./derek-os.sh && ./derek-os.sh` to install Derek OS, this will download and install/compile:
+Run `chmod +x ./derek-os.sh && ./derek-os.sh` to install Derek OS, this will download, install and compile:
 
 * Debian stable
   * Installed via debootstrap
 * Linux
-  * Linux Image, Modules and DTB for Derek OS. Fork from [linux-orangepi](https://github.com/orangepi-xunlong/linux-orangepi)
+  * Linux Image, Modules and DTB for Derek OS
 * Trusted Firmware A
   * Creates the BL31 binary required for U-Boot to compile
 * U-Boot
@@ -32,7 +32,18 @@ After installing Derek OS you can go into the Test directory then run `chmod +x 
 * `clean.sh` will remove most directories and files created during downloading/compiling Derek OS
 * `setup.sh` is run during the setup of Derek OS in a chroot environment
 * `first-boot.sh` is run the first time Derek OS is booted
-* `gen_boot_script.sh` creates boot.scr file using boot.cmd for U-Boot to run
+* `derek-os-compile.sh` compiles everything required
+* `derek-os-download.sh` downloads everything required
+* `derek-os-download.sh` sets up Derek OS
+* `extra-commands.sh` runs in the chroot environment while setting up Derek OS
 * `Test/qemu-dtb.sh` will dump the DTB used for QEMU
 * `Test/u-boot.sh` will compile U-Boot for QEMU
-* `Copy` is where directories and files can be placed that will get copied over to the the home directory on Derek OS during install
+* `fstab` is the fstab used
+* `hostname` is the hostname used
+* `services.txt` is the services that will be enabled and started
+* `patches.txt` is the patches required for Derek OS to function
+* `nmcli-args.txt` is the nmcli args run to setup networking
+* `docker-compose.yml` is the Docker Compose for all the Docker containers
+* `boot.cmd` is the commands run on the boot loader, it must be converted to `boot.scr` using `gen_boot_script.sh`
+* `apt-packages.txt` is any extra packages you might want
+* `Copy` is where directories and files can be placed that will get copied over to the the home directory during install

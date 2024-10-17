@@ -20,19 +20,20 @@ if [ -d "./Derek-OS" ]; then
     sudo rm -r ./Derek-OS
 fi
 
+# Download
 source ./derek-os-download.sh
 
+# Compile
 source ./derek-os-compile.sh
 
-# Setup Derek OS
+# Prep Derek-OS directory
 sudo mkdir -p ./Derek-OS
-
 echo "Copying Debian files to Derek OS..."
 sudo cp -r ./Debian/* ./Derek-OS
-
 echo "Installing Linux Modules..."
 sudo make -C ./Linux CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=../Derek-OS
 
+# Setup
 source ./derek-os-setup.sh
 
 echo "Done!"
