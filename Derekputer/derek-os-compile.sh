@@ -21,24 +21,24 @@ build() {
 }
 
 # Build required Linux files
-# cd ./Linux
-# echo "Applying all patches..."
-# for patch in ../Patches/*.patch; do
-#     patch -p1 -s < "$patch"
-# done
-# config "Linux" "defconfig" "ARCH=arm64"
-# build "Linux Image" "ARCH=arm64 Image"
-# build "Linux Modules" "ARCH=arm64 modules"
-# build "Linux DTB's" "ARCH=arm64 dtbs"
-# cd ..
+cd ./Linux
+echo "Applying all patches..."
+for patch in ../Patches/*.patch; do
+    patch -p1 -s < "$patch"
+done
+config "Linux" "defconfig" "ARCH=arm64"
+build "Linux Image" "ARCH=arm64 Image"
+build "Linux Modules" "ARCH=arm64 modules"
+build "Linux DTB's" "ARCH=arm64 dtbs"
+cd ..
 
 # Build required Trusted Firmware-A files
-# cd ./Trusted-Firmware-A
-# build "Trusted Firmware-A" "PLAT=sun50i_h616"
-# cd ..
+cd ./Trusted-Firmware-A
+build "Trusted Firmware-A" "PLAT=sun50i_h616"
+cd ..
 
 # Build required U-Boot files
-# cd ./U-Boot
-# config "U-Boot" "orangepi_zero3_defconfig"
-# build "U-Boot" "BL31=../Trusted-Firmware-A/build/sun50i_h616/release/bl31.bin"
-# cd ..
+cd ./U-Boot
+config "U-Boot" "orangepi_zero3_defconfig"
+build "U-Boot" "BL31=../Trusted-Firmware-A/build/sun50i_h616/release/bl31.bin"
+cd ..

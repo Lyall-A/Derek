@@ -27,18 +27,11 @@ source ./derek-os-compile.sh
 # Setup Derek OS
 sudo mkdir -p ./Derek-OS
 
-# echo "Copying Debian files to Derek OS..."
-# sudo cp -r ./Debian/* ./Derek-OS
+echo "Copying Debian files to Derek OS..."
+sudo cp -r ./Debian/* ./Derek-OS
 
-echo "Copying Armbian files to Derek OS..."
-sudo mkdir -p ./Armbian
-sudo mount -o loop,offset=$((8192 * 512)) ./Armbian.img ./Armbian
-sudo cp -r ./Armbian/* ./Derek-OS
-sudo rm ./Derek-OS/root/.not_logged_in_yet
-sudo umount ./Armbian.img
-
-# echo "Installing Linux Modules..."
-# sudo make -C ./Linux CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=../Derek-OS
+echo "Installing Linux Modules..."
+sudo make -C ./Linux CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=../Derek-OS
 
 source ./derek-os-setup.sh
 

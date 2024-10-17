@@ -13,14 +13,6 @@ else
     echo "Debootstrap not found, assuming not needed"
 fi
 
-# NOTE: Armbian fixes
-echo "Fixing /tmp permissions..."
-chmod 1777 /tmp
-echo "Temporarily changing resolv.conf..."
-rm /etc/resolv.conf
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
-echo "nameserver 8.8.4.4" >> /etc/resolv.conf
-
 echo "Installing packages..."
 apt install -y curl ca-certificates sudo network-manager
 
@@ -48,8 +40,6 @@ echo "Fixing sudo permissions..."
 chown root:root /usr/bin/sudo
 chmod 4755 /usr/bin/sudo
 
-#echo "Creating directories..."
-
 echo "Copying necessary files..."
 mv /Derek-OS-Temp/hostname /etc
 mv /Derek-OS-Temp/fstab /etc
@@ -67,11 +57,6 @@ echo "Setting up swap..."
 fallocate -l 2G /swapfile
 chmod 600 /swapfile
 /usr/sbin/mkswap /swapfile
-
-# NOTE: Armbian fixes
-echo "Restoring resolv.conf..."
-rm /etc/resolv.conf
-ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 if [[ -d "/Derek-OS-Temp/Copy" && "$(ls -A /Derek-OS-Temp/Copy)" ]]; then
     echo "Copying files to home..."
