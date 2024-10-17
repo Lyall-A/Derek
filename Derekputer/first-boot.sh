@@ -12,16 +12,22 @@ fi
 echo "Enabling services..."
 systemctl enable NetworkManager
 systemctl enable docker
+while read -r service; do
+    systemctl enable $service
+done < /home/derek/services.txt
 
 echo "Starting services..."
 systemctl start NetworkManager
 systemctl start docker
+while read -r service; do
+    systemctl start $service
+done < /home/derek/services.txt
 
 echo "Setting up network..."
-# todo: nmcli command
+nmcli $(cat /home/derek/nmcli-args.txt)
 
 echo "Setting up containers..."
-docker compose -f /home/derek/docker-compose.yml up
+docker compose -f /home/derek/docker-compose.yml up -d
 
 touch /home/derek/.first-boot
 systemctl disable first-boot

@@ -6,7 +6,7 @@ Run `chmod +x ./derek-os.sh && ./derek-os.sh` to install Derek OS, this will dow
 * Debian stable
   * Installed via debootstrap
 * Linux
-  * Linux Image, Modules and DTB for Derek OS
+  * Linux Image, Modules and DTB for Derek OS. Fork from [linux-orangepi](https://github.com/orangepi-xunlong/linux-orangepi)
 * Trusted Firmware A
   * Creates the BL31 binary required for U-Boot to compile
 * U-Boot
