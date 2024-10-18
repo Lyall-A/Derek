@@ -1,0 +1,24 @@
+{
+    "port": 80,
+    "hostname": null,
+    "loggingLevel": 2,
+    "ignoreErrors": true,
+    "additionalProxyServerOptions": {},
+    "defaultServerOptions": {
+        "supportedVersions": [
+            "HTTP/1.1"
+        ],
+        "authorizationCookie": "HTTP-Reverse-Proxy-Authorization",
+        "customAuthorizationHeader": "X-HTTP-Reverse-Proxy-Authorization",
+        "authorizationType": "cookies",
+        "cookieExpiry": 86400000,
+        "modifiedHeaders": {
+            "Host": "%{serverOptions.serverHostname}:%{serverOptions.serverPort}",
+            "X-Forwarded-Proto": null,
+            "CDN-Loop": null,
+            "CF-Visitor": null,
+            "CF-RAY": null,
+            "Origin": null
+        }
+    }
+}

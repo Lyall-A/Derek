@@ -1,5 +1,24 @@
-version: "3.8"
 services:
+  proxy:
+    image: node
+    container_name: proxy
+    restart: always
+    network_mode: host
+    volumes:
+      - /home/derek/proxy-whitelist.json:/whitelist.json
+      - /home/derek/proxy-blacklist.json:/blacklist.json
+      - /home/derek/proxy-servers.json:/servers.json
+      - /home/derek/proxy-config.json:/config.json
+    command: bash -c "
+      git clone https://github.com/Lyall-A/HTTP-Reverse-Proxy.git /app;
+      cd /app;
+      git pull;
+      git submodule update --init --recursive;
+      cp /whitelist.json .;
+      cp /blacklist.json .;
+      cp /servers.json .;
+      cp /config.json .;
+      node ."
   octoprint:
     image: octoprint/octoprint
     container_name: octoprint
@@ -10,3 +29,40 @@ services:
       - /home/derek/Docker/octoprint:/octoprint
       - /dev/ttyUSB0:/dev/ttyUSB0
     privileged: true
+  derek-cam:
+    image: node
+    container_name: derek-cam
+    restart: always
+    ports:
+      - 5001:5001
+    volumes:
+      - /dev/video1:/dev/video1
+      - /home/derek/Docker/derek-cam:/app
+      - /home/derek/derek-cam-config.json:/config.json
+    privileged: true
+    command: bash -c "
+      apt-get update;
+      apt-get install -y git ffmpeg;
+      apt-get clean;
+      git clone https://github.com/Lyall-A/Derek-Cam.git /app;
+      cd /app;
+      git pull;
+      git submodule update --init --recursive;
+      cp /config.json .;
+      node ."
+  derek-psu:
+    image: node
+    container_name: derek-psu
+    restart: always
+    ports:
+      - 5002:5002
+    volumes:
+      - /home/derek/Docker/derek-psu:/app
+      - /home/derek/derek-psu-config.json:/config.json
+    command: bash -c "
+      git clone https://github.com/Lyall-A/Derek-PSU.git /app;
+      cd /app;
+      git pull;
+      git submodule update --init --recursive;
+      cp /config.json .;
+      node ."

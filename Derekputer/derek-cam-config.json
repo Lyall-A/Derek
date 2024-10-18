@@ -1,0 +1,22 @@
+{
+    "port": 5001,
+    "ffmpegPath": "/bin/ffmpeg",
+    "ffmpegLogSize": 200,
+    "defaultOptions": {
+        "respawnDelay": 5,
+        "respawnOnClose": true,
+        "respawnOnError": true
+    },
+    "streams": [
+        {
+            "name": "Derek Cam",
+            "input": "/dev/video1",
+            "outputArgs": [
+                "-s", "1280x720",
+                "-r", "24",
+                "-q:v", "7",
+                "-an"
+            ]
+        }
+    ]
+}

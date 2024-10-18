@@ -10,6 +10,8 @@ sudo cp -r ./Copy ./Derek-OS/Derek-OS-Temp
 sudo cp ./nmcli-args.txt ./Derek-OS/Derek-OS-Temp
 sudo cp ./services.txt ./Derek-OS/Derek-OS-Temp
 sudo cp ./apt-packages.txt ./Derek-OS/Derek-OS-Temp
+sudo cp ./derek-psu-config.json ./Derek-OS/Derek-OS-Temp
+sudo cp ./derek-cam-config.json ./Derek-OS/Derek-OS-Temp
 sudo cp ./extra-commands.sh ./Derek-OS/Derek-OS-Temp
 sudo cp ./setup.sh ./Derek-OS/Derek-OS-Temp
 sudo cp ./hostname ./Derek-OS/Derek-OS-Temp
