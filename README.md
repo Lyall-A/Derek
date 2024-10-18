@@ -14,9 +14,22 @@ TODO: description
 * [PET/PEI Magnetic Build Plate](https://www.aliexpress.com/item/1005005536007858.html)
 
 ## Derekputer Docker Containers (TODO)
-* OctoPrint
-* Derek Cam
-* Derek PSU
+* [Proxy](https://github.com/Lyall-A/HTTP-Reverse-Proxy)
+* [OctoPrint](https://octoprint.org/)
+* [Derek Cam](https://github.com/Lyall-A/Derek-Cam)
+* [Derek PSU](https://github.com/Lyall-A/Derek-PSU)
+
+## Local Links
+* [OctoPrint](http://octoprint.derekputer)
+* [Derek Cam](http://cam.derekputer)
+* [Derek Cam (Stream)](http://stream.derekputer)
+* [Derek Cam (Still)](http://still.derekputer)
+* 
+## Public Links
+* [OctoPrint](http://derek.lyall.lol)
+* [Derek Cam](http://derek-cam.derekputer)
+* [Derek Cam (Stream)](http://derek-stream.derekputer)
+* [Derek Cam (Still)](http://derek-still.derekputer)
 
 ## Random info
 * Derekputer is a Orange Pi Zero 3 with 4GB RAM
@@ -27,9 +40,5 @@ TODO: description
 * The AUX fan is slightly fucked, got a free replacement from Creality and within seconds fucked that one too :)
 
 ## TODO's
-* Change the popup that shows on the LCD during boot, seems to be in the binary at [Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a](https://github.com/Lyall-A/Derek-Firmware/tree/main/Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a)
-* Create Derekputer deployment script with software etc
-  * Fix `iptables: Failed to initialize nft: Protocol not supported`
-  * Fix `sudo: /usr/bin/sudo must be owned by uid 0 and have the setuid bit set` (when user isn't root)
-  * Fix `ping: socket: Address family not supported by protocol` (when user isn't root)
-  * Fix U-Boot not running boot.scr
+* ~~Change the popup that shows on the LCD during boot, seems to be in the binary at [Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a](https://github.com/Lyall-A/Derek-Firmware/tree/main/Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a)~~ doesn't seem to be possible
+* Get Derek OS running from Debian with custom Linux kernel tweaks
