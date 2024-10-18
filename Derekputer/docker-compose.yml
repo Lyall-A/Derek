@@ -40,6 +40,7 @@ services:
       - /home/derek/Docker/derek-cam:/app
       - /home/derek/derek-cam-error.jpg:/error.jpg
       - /home/derek/derek-cam-offline.jpg:/offline.jpg
+      - /home/derek/derek-cam-script.js:/script.json
       - /home/derek/derek-cam-config.json:/config.json
     privileged: true
     command: bash -c "
@@ -52,6 +53,7 @@ services:
       git submodule update --init --recursive;
       cp /error.jpg .;
       cp /offline.jpg .;
+      cp /script.js .;
       cp /config.json .;
       node ."
   derek-psu:
