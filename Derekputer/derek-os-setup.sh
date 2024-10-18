@@ -6,17 +6,10 @@ set -e
 sudo mkdir -p ./Derek-OS/Derek-OS-Temp
 
 echo "Copying necessary files to Derek OS..."
-sudo cp -r ./Copy ./Derek-OS/Derek-OS-Temp
+sudo cp -r ./Home ./Derek-OS/Derek-OS-Temp
 sudo cp ./nmcli-args.txt ./Derek-OS/Derek-OS-Temp
 sudo cp ./services.txt ./Derek-OS/Derek-OS-Temp
 sudo cp ./apt-packages.txt ./Derek-OS/Derek-OS-Temp
-sudo cp ./proxy-config.json ./Derek-OS/Derek-OS-Temp
-sudo cp ./proxy-servers.json ./Derek-OS/Derek-OS-Temp
-sudo cp ./derek-psu-config.json ./Derek-OS/Derek-OS-Temp
-sudo cp ./derek-cam-error.jpg ./Derek-OS/Derek-OS-Temp
-sudo cp ./derek-cam-offline.jpg ./Derek-OS/Derek-OS-Temp
-sudo cp ./derek-cam-script.js ./Derek-OS/Derek-OS-Temp
-sudo cp ./derek-cam-config.json ./Derek-OS/Derek-OS-Temp
 sudo cp ./extra-commands.sh ./Derek-OS/Derek-OS-Temp
 sudo cp ./setup.sh ./Derek-OS/Derek-OS-Temp
 sudo cp ./hostname ./Derek-OS/Derek-OS-Temp

@@ -5,17 +5,17 @@ services:
     restart: always
     network_mode: host
     volumes:
-      - /home/derek/proxy-whitelist.json:/whitelist.json
-      - /home/derek/proxy-blacklist.json:/blacklist.json
       - /home/derek/proxy-servers.json:/servers.json
       - /home/derek/proxy-config.json:/config.json
     command: bash -c "
+      apt-get update;
+      apt-get install -y git;
+      apt-get clean;
+      git config --global --add safe.directory /app;
       git clone https://github.com/Lyall-A/HTTP-Reverse-Proxy.git /app;
       cd /app;
       git pull;
       git submodule update --init --recursive;
-      cp /whitelist.json .;
-      cp /blacklist.json .;
       cp /servers.json .;
       cp /config.json .;
       node ."
@@ -40,13 +40,14 @@ services:
       - /home/derek/Docker/derek-cam:/app
       - /home/derek/derek-cam-error.jpg:/error.jpg
       - /home/derek/derek-cam-offline.jpg:/offline.jpg
-      - /home/derek/derek-cam-script.js:/script.json
+      - /home/derek/derek-cam-script.js:/script.js
       - /home/derek/derek-cam-config.json:/config.json
     privileged: true
     command: bash -c "
       apt-get update;
       apt-get install -y git ffmpeg;
       apt-get clean;
+      git config --global --add safe.directory /app;
       git clone https://github.com/Lyall-A/Derek-Cam.git /app;
       cd /app;
       git pull;
@@ -67,6 +68,10 @@ services:
       - /home/derek/Docker/derek-psu:/app
       - /home/derek/derek-psu-config.json:/config.json
     command: bash -c "
+      apt-get update;
+      apt-get install -y git;
+      apt-get clean;
+      git config --global --add safe.directory /app;
       git clone https://github.com/Lyall-A/Derek-PSU.git /app;
       cd /app;
       git pull;

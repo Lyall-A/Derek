@@ -45,13 +45,6 @@ echo "Copying necessary files..."
 mv /Derek-OS-Temp/hostname /etc
 mv /Derek-OS-Temp/fstab /etc
 mv /Derek-OS-Temp/first-boot.service /etc/systemd/system
-mv /Derek-OS-Temp/proxy-config.json /home/derek
-mv /Derek-OS-Temp/proxy-servers.json /home/derek
-mv /Derek-OS-Temp/derek-cam-offline.jpg /home/derek
-mv /Derek-OS-Temp/derek-cam-error.jpg /home/derek
-mv /Derek-OS-Temp/derek-cam-script.js /home/derek
-mv /Derek-OS-Temp/derek-cam-config.json /home/derek
-mv /Derek-OS-Temp/derek-psu-config.json /home/derek
 mv /Derek-OS-Temp/docker-compose.yml /home/derek
 mv /Derek-OS-Temp/first-boot.sh /home/derek
 mv /Derek-OS-Temp/nmcli-args.txt /home/derek
@@ -66,9 +59,9 @@ fallocate -l 2G /swapfile
 chmod 600 /swapfile
 /usr/sbin/mkswap /swapfile
 
-if [[ -d "/Derek-OS-Temp/Copy" && "$(ls -A /Derek-OS-Temp/Copy)" ]]; then
+if [[ -d "/Derek-OS-Temp/Home" && "$(ls -A /Derek-OS-Temp/Home)" ]]; then
     echo "Copying files to home..."
-    mv /Derek-OS-Temp/Copy/* /home/derek
+    mv /Derek-OS-Temp/Home/* /home/derek
 fi
 
 if [[ -f "/Derek-OS-Temp/extra-commands.sh" ]]; then
