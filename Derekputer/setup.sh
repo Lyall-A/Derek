@@ -45,6 +45,11 @@ echo "Copying necessary files..."
 mv /Derek-OS-Temp/hostname /etc
 mv /Derek-OS-Temp/fstab /etc
 mv /Derek-OS-Temp/first-boot.service /etc/systemd/system
+mv /Derek-OS-Temp/proxy-config.json /home/derek
+mv /Derek-OS-Temp/proxy-servers.json /home/derek
+mv /Derek-OS-Temp/derek-cam-offline.jpg /home/derek
+mv /Derek-OS-Temp/derek-cam-error.jpg /home/derek
+mv /Derek-OS-Temp/derek-cam-script.js /home/derek
 mv /Derek-OS-Temp/derek-cam-config.json /home/derek
 mv /Derek-OS-Temp/derek-psu-config.json /home/derek
 mv /Derek-OS-Temp/docker-compose.yml /home/derek

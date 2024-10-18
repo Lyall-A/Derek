@@ -13,10 +13,11 @@
             "input": "/dev/video1",
             "outputArgs": [
                 "-s", "1280x720",
-                "-r", "24",
+                "-r", "15",
                 "-q:v", "7",
                 "-an"
-            ]
+            ],
+            "script": "script.js"
         }
     ]
 }

@@ -42,3 +42,4 @@ TODO: description
 ## TODO's
 * ~~Change the popup that shows on the LCD during boot, seems to be in the binary at [Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a](https://github.com/Lyall-A/Derek-Firmware/tree/main/Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a)~~ doesn't seem to be possible
 * Get Derek OS running from Debian with custom Linux kernel tweaks
+* Derek Cam script + offline and error jpegs

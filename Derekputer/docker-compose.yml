@@ -38,6 +38,8 @@ services:
     volumes:
       - /dev/video1:/dev/video1
       - /home/derek/Docker/derek-cam:/app
+      - /home/derek/derek-cam-error.jpg:/error.jpg
+      - /home/derek/derek-cam-offline.jpg:/offline.jpg
       - /home/derek/derek-cam-config.json:/config.json
     privileged: true
     command: bash -c "
@@ -48,6 +50,8 @@ services:
       cd /app;
       git pull;
       git submodule update --init --recursive;
+      cp /error.jpg .;
+      cp /offline.jpg .;
       cp /config.json .;
       node ."
   derek-psu:
