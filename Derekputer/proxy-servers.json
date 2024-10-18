@@ -3,7 +3,8 @@
         "_comment": "OctoPrint",
         "proxyHostnames": ["octoprint.", "derek.", "control.", "web."],
         "serverHostname": "localhost",
-        "serverPort": 5000
+        "serverPort": 5000,
+        "modifiedHeaders": { "Host": true }
     },
     {
         "_comment": "Derek Cam",
