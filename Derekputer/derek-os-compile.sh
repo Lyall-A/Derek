@@ -22,11 +22,8 @@ build() {
 
 # Build required Linux files
 cd ./Linux
-echo "Applying all patches..."
-for patch in ../Patches/*.patch; do
-    patch -p1 -s < "$patch"
-done
-config "Linux" "defconfig" "ARCH=arm64"
+sudo cp ../derekputer.config .config
+config "Linux" "olddefconfig" "ARCH=arm64"
 build "Linux Image" "ARCH=arm64 Image"
 build "Linux Modules" "ARCH=arm64 modules"
 build "Linux DTB's" "ARCH=arm64 dtbs"

@@ -1,1 +1,1 @@
-neofetch samba
+neofetch samba openssh-server

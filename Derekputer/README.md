@@ -47,3 +47,8 @@ After installing Derek OS you can go into the Test directory then run `chmod +x 
 * `boot.cmd` is the commands run on the boot loader, it must be converted to `boot.scr` using `gen_boot_script.sh`
 * `apt-packages.txt` is any extra packages you might want
 * `Copy` is where directories and files can be placed that will get copied over to the the home directory during install
+
+## Notes
+* Spams the fuck out of serial terminal with Wi-Fi warnings, ignore :)
+* Drivers aren't all there, everything that is absolutely **needed** works (I think)
+* Bluetooth probably doesn't work straight away, *should* work with `sudo modprobe sprdbt_tty && sudo systemctl start aw859a-bluetooth`

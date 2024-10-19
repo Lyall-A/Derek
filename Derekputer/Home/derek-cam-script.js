@@ -30,7 +30,7 @@ stream.onError = () => {
     } else
     if (status == "on" && state != 0) {
         // Start stream on PSU online, stream.start() will set state to 0
-        stream.log("Starting stream");
+        stream.log("PSU is on, starting stream");
         stream.start();
     }
 })();

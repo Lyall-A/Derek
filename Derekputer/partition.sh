@@ -35,9 +35,10 @@ sudo cp -r ./Derek-OS/* ./Mount
 
 echo "Copying files to boot..."
 sudo mkdir -p ./Mount/boot
+sudo mkdir -p ./Mount/boot/dtb/allwinner
 sudo cp ./boot.scr ./Mount/boot
 sudo cp ./Linux/arch/arm64/boot/Image ./Mount/boot
-sudo cp ./Linux/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dtb ./Mount/boot
+sudo cp -r ./Linux/arch/arm64/boot/dts/allwinner/*.dtb ./Mount/boot/dtb/allwinner
 
 echo "Ejecting $disk..."
 until sudo eject $disk; do

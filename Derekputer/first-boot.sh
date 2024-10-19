@@ -10,17 +10,19 @@ if [ -f "/home/derek/.first-boot" ]; then
 fi
 
 echo "Enabling services..."
+systemctl enable aw859a-wifi
 systemctl enable NetworkManager
 systemctl enable docker
 while read -r service; do
-    systemctl enable $service
+    systemctl enable $service || true
 done < /home/derek/services.txt
 
 echo "Starting services..."
+systemctl start aw859a-wifi
 systemctl start NetworkManager
 systemctl start docker
 while read -r service; do
-    systemctl start $service
+    systemctl start $service || true
 done < /home/derek/services.txt
 
 echo "Setting up network..."

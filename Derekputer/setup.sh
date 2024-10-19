@@ -14,7 +14,7 @@ else
 fi
 
 echo "Installing packages..."
-apt install -y curl ca-certificates sudo network-manager git
+apt install -y curl ca-certificates sudo network-manager git systemd-timesyncd
 
 if [[ -f "/Derek-OS-Temp/apt-packages.txt" && "$(cat /Derek-OS-Temp/apt-packages.txt)" ]]; then
     echo "Installing optional packages..."
@@ -42,9 +42,13 @@ echo "root:$root_password" | /usr/sbin/chpasswd
 # chmod 4755 /usr/bin/sudo
 
 echo "Copying necessary files..."
+mv /Derek-OS-Temp/Firmware /lib/firmware
+mv /Derek-OS-Temp/aw859a-wifi.service /lib/systemd/system
+mv /Derek-OS-Temp/aw859a-bluetooth.service /lib/systemd/system
+mv /Derek-OS-Temp/hciattach_opi_arm64 /usr/bin
 mv /Derek-OS-Temp/hostname /etc
 mv /Derek-OS-Temp/fstab /etc
-mv /Derek-OS-Temp/first-boot.service /etc/systemd/system
+mv /Derek-OS-Temp/first-boot.service /lib/systemd/system
 mv /Derek-OS-Temp/docker-compose.yml /home/derek
 mv /Derek-OS-Temp/first-boot.sh /home/derek
 mv /Derek-OS-Temp/nmcli-args.txt /home/derek
@@ -52,7 +56,7 @@ mv /Derek-OS-Temp/services.txt /home/derek
 chmod +x /home/derek/first-boot.sh
 
 echo "Enabling first boot service..."
-ln -s /etc/systemd/system/first-boot.service /etc/systemd/system/multi-user.target.wants/first-boot.service
+ln -s /lib/systemd/system/first-boot.service /lib/systemd/system/multi-user.target.wants/first-boot.service
 
 echo "Setting up swap..."
 fallocate -l 2G /swapfile
