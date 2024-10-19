@@ -5,4 +5,4 @@ RUN apt-get update && \
 
 RUN git config --global --add safe.directory /app && git clone https://github.com/Lyall-A/Derek-PSU.git /app
 
-    ENTRYPOINT ["/bin/bash", "-c", "cd /app; git pull; git submodule update --init --recursive; node ."]
+ENTRYPOINT ["/bin/bash", "-c", "cd /app; git pull; git submodule update --init --recursive; node ."]
