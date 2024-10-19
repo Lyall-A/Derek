@@ -34,9 +34,6 @@ done
 echo "Syncing time..."
 systemctl restart systemd-timesyncd
 
-echo "Installing sudo..."
-apt install -y sudo
-
 echo "Setting up containers..."
 docker compose -f /home/derek/docker-compose.yml up -d
 

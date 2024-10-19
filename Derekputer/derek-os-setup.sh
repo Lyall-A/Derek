@@ -16,7 +16,7 @@ fi
 sudo mkdir -p ./Derek-OS
 
 echo "Copying Debian files to Derek OS..."
-sudo cp -r ./Debian/* ./Derek-OS
+sudo cp -a ./Debian/* ./Derek-OS
 
 echo "Installing Linux Modules..."
 sudo make -C ./Linux CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=../Derek-OS
@@ -27,8 +27,6 @@ echo "Copying necessary files to Derek OS..."
 sudo cp -r ./Home ./Derek-OS/Derek-OS-Temp
 sudo cp -r ./Armbian/Firmware ./Derek-OS/Derek-OS-Temp
 sudo cp ./Armbian/Build/packages/bsp/sunxi/aw859a-wifi.service ./Derek-OS/Derek-OS-Temp
-sudo cp ./Armbian/Build/packages/bsp/sunxi/aw859a-bluetooth.service ./Derek-OS/Derek-OS-Temp
-sudo cp ./Armbian/Build/packages/blobs/bt/hciattach/hciattach_opi_arm64 ./Derek-OS/Derek-OS-Temp
 sudo cp ./nmcli-args.txt ./Derek-OS/Derek-OS-Temp
 sudo cp ./services.txt ./Derek-OS/Derek-OS-Temp
 sudo cp ./apt-packages.txt ./Derek-OS/Derek-OS-Temp

@@ -56,4 +56,3 @@ After installing Derek OS you can go into the Test directory then run `chmod +x 
 * You can copy stuff into the `Home` directory to copy things over such as Docker volumes
 * Spams the fuck out of serial terminal with Wi-Fi warnings, ignore :)
 * Drivers aren't all there, everything that is absolutely **needed** works (I think)
-* The module `sprdbt_tty` is probably not loaded on boot meaning Bluetooth won't work, *should* work with `sudo modprobe sprdbt_tty && sudo systemctl start aw859a-bluetooth`

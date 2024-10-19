@@ -14,7 +14,7 @@ else
 fi
 
 echo "Installing packages..."
-apt install -y curl ca-certificates network-manager systemd-timesyncd
+apt install -y curl ca-certificates sudo network-manager systemd-timesyncd
 
 if [[ -f "/Derek-OS-Temp/apt-packages.txt" && "$(cat /Derek-OS-Temp/apt-packages.txt)" ]]; then
     echo "Installing optional packages..."
@@ -39,8 +39,6 @@ echo "root:$root_password" | /usr/sbin/chpasswd
 echo "Copying necessary files..."
 mv /Derek-OS-Temp/Firmware/* /lib/firmware
 mv /Derek-OS-Temp/aw859a-wifi.service /lib/systemd/system
-mv /Derek-OS-Temp/aw859a-bluetooth.service /lib/systemd/system
-mv /Derek-OS-Temp/hciattach_opi_arm64 /usr/bin
 mv /Derek-OS-Temp/hostname /etc
 mv /Derek-OS-Temp/fstab /etc
 mv /Derek-OS-Temp/first-boot.service /lib/systemd/system
@@ -67,6 +65,9 @@ if [[ -f "/Derek-OS-Temp/extra-commands.sh" ]]; then
     echo "Running extra commands..."
     source /Derek-OS-Temp/extra-commands.sh
 fi
+
+echo "Making user 'derek' owner of home directory recursively..."
+chown -R derek:derek /home/derek
 
 echo "Removing temp directory..."
 rm -r /Derek-OS-Temp

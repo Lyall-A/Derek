@@ -31,7 +31,7 @@ echo "Mounting $disk..."
 sudo mount --mkdir ${disk}1 ./Mount
 
 echo "Copying Derek OS to root..."
-sudo cp -r ./Derek-OS/* ./Mount
+sudo cp -a ./Derek-OS/* ./Mount
 
 echo "Copying files to boot..."
 sudo mkdir -p ./Mount/boot
