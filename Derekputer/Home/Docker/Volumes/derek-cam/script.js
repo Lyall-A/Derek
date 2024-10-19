@@ -17,25 +17,26 @@ stream.onError = () => {
 }
 
 (async function checkPSU() {
-    const status = await getPSUStatus().catch(err => {
-        stream.log("Failed to get PSU status!");
-        return setTimeout(checkPSU, 5000);
-    });
-    setTimeout(checkPSU, 5000);
+    getPSUStatus().then(status => {
+        setTimeout(checkPSU, 5000);
 
-    if (status == "off" && state != 2 && psuOn) {
-        // Set state to 2 on PSU offline
-        psuOn = false;
-        stream.log("Setting frame to offline scene");
-        stream.stop(true);
-        state = 2;
-    } else
-    if (status == "on" && state != 0 && !psuOn) {
-        // Start stream on PSU online, stream.start() will set state to 0
-        psuOn = true;
-        stream.log("PSU is on, starting stream");
-        stream.start();
-    }
+        if (status == "off" && state != 2 && psuOn) {
+            // Set state to 2 on PSU offline
+            psuOn = false;
+            stream.log("Setting frame to offline scene");
+            stream.stop(true);
+            state = 2;
+        } else
+        if (status == "on" && state != 0 && !psuOn) {
+            // Start stream on PSU online, stream.start() will set state to 0
+            psuOn = true;
+            stream.log("PSU is on, starting stream");
+            stream.start();
+        }
+    }).catch(err => {
+        stream.log("Failed to get PSU status!");
+        setTimeout(checkPSU, 5000);
+    });
 })();
 
 setInterval(() => {

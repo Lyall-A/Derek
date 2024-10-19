@@ -1,80 +1,41 @@
 services:
   proxy:
-    image: node
+    build: /home/derek/Docker/Dockerfiles/proxy
     container_name: proxy
     restart: always
     network_mode: host
     volumes:
-      - /home/derek/proxy-servers.json:/servers.json
-      - /home/derek/proxy-config.json:/config.json
-    command: bash -c "
-      apt-get update;
-      apt-get install -y git;
-      apt-get clean;
-      git config --global --add safe.directory /app;
-      git clone https://github.com/Lyall-A/HTTP-Reverse-Proxy.git /app;
-      cd /app;
-      git pull;
-      git submodule update --init --recursive;
-      cp /servers.json .;
-      cp /config.json .;
-      node ."
+      - /home/derek/Docker/Volumes/proxy/config.json:/app/config.json
+      - /home/derek/Docker/Volumes/proxy/servers.json:/app/servers.json
   octoprint:
-    image: octoprint/octoprint
+    build: /home/derek/Docker/Dockerfiles/octoprint
     container_name: octoprint
     restart: always
     ports:
       - 5000:80
     volumes:
-      - /home/derek/Docker/octoprint:/octoprint
+      - /home/derek/Docker/Volumes/octoprint:/octoprint
       - /dev:/dev
     privileged: true
   derek-cam:
-    image: node
+    build: /home/derek/Docker/Dockerfiles/derek-cam
     container_name: derek-cam
     restart: always
     ports:
       - 5001:5001
     volumes:
       - /dev:/dev
-      - /home/derek/Docker/derek-cam:/app
-      - /home/derek/derek-cam-error.jpg:/error.jpg
-      - /home/derek/derek-cam-offline.jpg:/offline.jpg
-      - /home/derek/derek-cam-script.js:/script.js
-      - /home/derek/derek-cam-config.json:/config.json
+      - /home/derek/Docker/Volumes/derek-cam/config.json:/app/config.json
+      - /home/derek/Docker/Volumes/derek-cam/script.js:/app/script.js 
+      - /home/derek/Docker/Volumes/derek-cam/offline.jpg:/app/offline.jpg
+      - /home/derek/Docker/Volumes/derek-cam/error.jpg:/app/error.jpg
     privileged: true
-    command: bash -c "
-      apt-get update;
-      apt-get install -y git ffmpeg;
-      apt-get clean;
-      git config --global --add safe.directory /app;
-      git clone https://github.com/Lyall-A/Derek-Cam.git /app;
-      cd /app;
-      git pull;
-      git submodule update --init --recursive;
-      cp /error.jpg .;
-      cp /offline.jpg .;
-      cp /script.js .;
-      cp /config.json .;
-      node ."
   derek-psu:
-    image: node
+    build: /home/derek/Docker/Dockerfiles/derek-psu
     container_name: derek-psu
     restart: always
     ports:
       - 5002:5002
       - 9999:9999
     volumes:
-      - /home/derek/Docker/derek-psu:/app
-      - /home/derek/derek-psu-config.json:/config.json
-    command: bash -c "
-      apt-get update;
-      apt-get install -y git;
-      apt-get clean;
-      git config --global --add safe.directory /app;
-      git clone https://github.com/Lyall-A/Derek-PSU.git /app;
-      cd /app;
-      git pull;
-      git submodule update --init --recursive;
-      cp /config.json .;
-      node ."
+      - /home/derek/Docker/Volumes/derek-psu/config.json:/app/config.json
