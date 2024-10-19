@@ -23,10 +23,10 @@ build() {
 # Build required Linux files
 cd ./Linux
 sudo cp ../derekputer.config .config
-config "Linux" "olddefconfig" "ARCH=arm64"
-build "Linux Image" "ARCH=arm64 Image"
-build "Linux Modules" "ARCH=arm64 modules"
-build "Linux DTB's" "ARCH=arm64 dtbs"
+config "Linux" "olddefconfig" "LOCALVERSION=-Derek-OS ARCH=arm64"
+build "Linux Image" "LOCALVERSION=-Derek-OS ARCH=arm64 Image"
+build "Linux Modules" "LOCALVERSION=-Derek-OS ARCH=arm64 modules"
+build "Linux DTB's" "LOCALVERSION=-Derek-OS ARCH=arm64 dtbs"
 cd ..
 
 # Build required Trusted Firmware-A files

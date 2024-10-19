@@ -5,8 +5,12 @@ Run `chmod +x ./derek-os.sh && ./derek-os.sh` to install Derek OS, this will dow
 
 * Debian stable
   * Installed via debootstrap
+* Armbian build
+  * Used for some patches and files needed
+* Armbian firmware
+  * Used to install the firmware required for some drivers to work
 * Linux
-  * Linux Image, Modules and DTB for Derek OS
+  * Linux Image, Modules and DTB's for Derek OS
 * Trusted Firmware A
   * Creates the BL31 binary required for U-Boot to compile
 * U-Boot
@@ -46,9 +50,10 @@ After installing Derek OS you can go into the Test directory then run `chmod +x 
 * `docker-compose.yml` is the Docker Compose for all the Docker containers
 * `boot.cmd` is the commands run on the boot loader, it must be converted to `boot.scr` using `gen_boot_script.sh`
 * `apt-packages.txt` is any extra packages you might want
-* `Copy` is where directories and files can be placed that will get copied over to the the home directory during install
+* `Home` is where directories and files can be placed that will get copied over to the the home directory during install
 
 ## Notes
+* You can copy stuff into the `Home` directory to copy things over such as Docker volumes
 * Spams the fuck out of serial terminal with Wi-Fi warnings, ignore :)
 * Drivers aren't all there, everything that is absolutely **needed** works (I think)
-* Bluetooth probably doesn't work straight away, *should* work with `sudo modprobe sprdbt_tty && sudo systemctl start aw859a-bluetooth`
+* The module `sprdbt_tty` is probably not loaded on boot meaning Bluetooth won't work, *should* work with `sudo modprobe sprdbt_tty && sudo systemctl start aw859a-bluetooth`
