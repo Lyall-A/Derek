@@ -55,3 +55,4 @@ done < ../patches.txt
 
 echo "Adding uwe5622 to wireless Makefile..."
 echo "obj-\$(CONFIG_SPARD_WLAN_SUPPORT) += uwe5622/" >> ./drivers/net/wireless/Makefile
+cd ..

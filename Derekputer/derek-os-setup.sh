@@ -18,9 +18,6 @@ sudo mkdir -p ./Derek-OS
 echo "Copying Debian files to Derek OS..."
 sudo cp -r ./Debian/* ./Derek-OS
 
-echo "Copying Armbian Linux firmware to Derek OS..."
-sudo cp -r ./Firmware/* ./Derek-OS/lib/firmware
-
 echo "Installing Linux Modules..."
 sudo make -C ./Linux CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=../Derek-OS
 

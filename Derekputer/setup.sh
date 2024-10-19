@@ -14,7 +14,7 @@ else
 fi
 
 echo "Installing packages..."
-apt install -y curl ca-certificates sudo network-manager git systemd-timesyncd
+apt install -y curl ca-certificates network-manager systemd-timesyncd
 
 if [[ -f "/Derek-OS-Temp/apt-packages.txt" && "$(cat /Derek-OS-Temp/apt-packages.txt)" ]]; then
     echo "Installing optional packages..."
@@ -36,13 +36,8 @@ echo "Setting up users..."
 echo "derek:$password" | /usr/sbin/chpasswd
 echo "root:$root_password" | /usr/sbin/chpasswd
 
-# TODO
-# echo "Fixing sudo permissions..."
-# chown root:root /usr/bin/sudo
-# chmod 4755 /usr/bin/sudo
-
 echo "Copying necessary files..."
-mv /Derek-OS-Temp/Firmware /lib/firmware
+mv /Derek-OS-Temp/Firmware/* /lib/firmware
 mv /Derek-OS-Temp/aw859a-wifi.service /lib/systemd/system
 mv /Derek-OS-Temp/aw859a-bluetooth.service /lib/systemd/system
 mv /Derek-OS-Temp/hciattach_opi_arm64 /usr/bin

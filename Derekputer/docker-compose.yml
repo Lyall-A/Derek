@@ -27,7 +27,7 @@ services:
       - 5000:80
     volumes:
       - /home/derek/Docker/octoprint:/octoprint
-      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev:/dev
     privileged: true
   derek-cam:
     image: node
@@ -36,7 +36,7 @@ services:
     ports:
       - 5001:5001
     volumes:
-      - /dev/video1:/dev/video1
+      - /dev:/dev
       - /home/derek/Docker/derek-cam:/app
       - /home/derek/derek-cam-error.jpg:/error.jpg
       - /home/derek/derek-cam-offline.jpg:/offline.jpg

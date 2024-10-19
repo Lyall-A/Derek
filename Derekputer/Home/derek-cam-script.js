@@ -4,6 +4,7 @@ const http = require("http");
 const error = fs.readFileSync("error.jpg");
 const offline = fs.readFileSync("offline.jpg");
 
+let psuOn = true;
 let state = 0;
 
 stream.keepStream = true; // Keep allowing clients when FFmpeg not running
@@ -22,14 +23,16 @@ stream.onError = () => {
     });
     setTimeout(checkPSU, 5000);
 
-    if (status == "off" && state != 2) {
+    if (status == "off" && state != 2 && psuOn) {
         // Set state to 2 on PSU offline
+        psuOn = false;
         stream.log("Setting frame to offline scene");
         stream.stop(true);
         state = 2;
     } else
-    if (status == "on" && state != 0) {
+    if (status == "on" && state != 0 && !psuOn) {
         // Start stream on PSU online, stream.start() will set state to 0
+        psuOn = true;
         stream.log("PSU is on, starting stream");
         stream.start();
     }

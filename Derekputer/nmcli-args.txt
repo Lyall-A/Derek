@@ -1,1 +1,1 @@
-device wifi connect Adamson password Adamson2508
+device wifi connect Adamson password Adamson2508 ifname wlan0

@@ -26,7 +26,16 @@ while read -r service; do
 done < /home/derek/services.txt
 
 echo "Setting up network..."
-nmcli $(cat /home/derek/nmcli-args.txt)
+until nmcli $(cat /home/derek/nmcli-args.txt); do
+    echo "Failed to connect to network, retrying in 5 seconds..."
+    sleep 5
+done
+
+echo "Syncing time..."
+systemctl restart systemd-timesyncd
+
+echo "Installing sudo..."
+apt install -y sudo
 
 echo "Setting up containers..."
 docker compose -f /home/derek/docker-compose.yml up -d

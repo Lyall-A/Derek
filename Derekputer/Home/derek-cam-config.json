@@ -10,7 +10,7 @@
     "streams": [
         {
             "name": "Derek Cam",
-            "input": "/dev/video1",
+            "input": "/dev/video0",
             "outputArgs": [
                 "-s", "1280x720",
                 "-r", "15",
