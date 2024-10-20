@@ -32,9 +32,9 @@ echo "Installing Docker..."
 apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 echo "Setting up users..."
-/usr/sbin/useradd -m -s /bin/bash -G sudo -c "Derek" derek
-echo "derek:$password" | /usr/sbin/chpasswd
-echo "root:$root_password" | /usr/sbin/chpasswd
+/sbin/useradd -m -s /bin/bash -G sudo,docker -c "Derek" derek
+echo "derek:$password" | /sbin/chpasswd
+echo "root:$root_password" | /sbin/chpasswd
 
 echo "Copying necessary files..."
 mv /Derek-OS-Temp/Firmware/* /lib/firmware
@@ -54,7 +54,7 @@ ln -s /lib/systemd/system/first-boot.service /lib/systemd/system/multi-user.targ
 echo "Setting up swap..."
 fallocate -l 2G /swapfile
 chmod 600 /swapfile
-/usr/sbin/mkswap /swapfile
+/sbin/mkswap /swapfile
 
 if [[ -d "/Derek-OS-Temp/Home" && "$(ls -A /Derek-OS-Temp/Home)" ]]; then
     echo "Copying files to home..."
