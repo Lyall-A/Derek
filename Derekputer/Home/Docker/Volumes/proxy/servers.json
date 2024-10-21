@@ -1,7 +1,7 @@
 [
     {
         "_comment": "OctoPrint",
-        "proxyHostnames": ["derekputer", "octoprint.", "web."],
+        "proxyHostnames": ["derekputer", "derek", "octoprint.", "web."],
         "serverHostname": "127.0.0.1",
         "serverPort": 5000,
         "modifiedHeaders": { "Host": true }
