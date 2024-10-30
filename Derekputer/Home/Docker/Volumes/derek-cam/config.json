@@ -13,8 +13,8 @@
             "input": "/dev/video0",
             "outputArgs": [
                 "-s", "1280x720",
-                "-r", "15",
-                "-q:v", "4",
+                "-r", "20",
+                "-q:v", "1",
                 "-an"
             ],
             "script": "script.js"
