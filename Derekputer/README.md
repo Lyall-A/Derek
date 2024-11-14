@@ -54,5 +54,6 @@ After installing Derek OS you can go into the Test directory then run `chmod +x 
 
 ## Notes
 * You can copy stuff into the `Home` directory to copy things over such as Docker volumes
+* If reinstalling and don't want to lose OctoPrint data, copy data over to `Docker/Volumes/octoprint` before setup
 * Spams the fuck out of serial terminal with Wi-Fi warnings, ignore :)
 * Drivers aren't all there, everything that is absolutely **needed** works (I think)

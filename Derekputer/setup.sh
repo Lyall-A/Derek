@@ -14,7 +14,7 @@ else
 fi
 
 echo "Installing packages..."
-apt install -y curl ca-certificates sudo network-manager systemd-timesyncd
+apt install -y curl ca-certificates sudo network-manager systemd-timesyncd openssh-server
 
 if [[ -f "/Derek-OS-Temp/apt-packages.txt" && "$(cat /Derek-OS-Temp/apt-packages.txt)" ]]; then
     echo "Installing optional packages..."
@@ -42,6 +42,7 @@ mv /Derek-OS-Temp/aw859a-wifi.service /lib/systemd/system
 mv /Derek-OS-Temp/hostname /etc
 mv /Derek-OS-Temp/fstab /etc
 mv /Derek-OS-Temp/first-boot.service /lib/systemd/system
+mv /Derek-OS-Temp/Docker /home/derek
 mv /Derek-OS-Temp/docker-compose.yml /home/derek
 mv /Derek-OS-Temp/first-boot.sh /home/derek
 mv /Derek-OS-Temp/nmcli-args.txt /home/derek

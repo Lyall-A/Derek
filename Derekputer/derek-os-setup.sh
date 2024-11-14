@@ -24,6 +24,7 @@ sudo make -C ./Linux CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MO
 sudo mkdir -p ./Derek-OS/Derek-OS-Temp
 
 echo "Copying necessary files to Derek OS..."
+sudo cp -r ./Docker ./Derek-OS/Derek-OS-Temp
 sudo cp -r ./Home ./Derek-OS/Derek-OS-Temp
 sudo cp -r ./Armbian/Firmware ./Derek-OS/Derek-OS-Temp
 sudo cp ./Armbian/Build/packages/bsp/sunxi/aw859a-wifi.service ./Derek-OS/Derek-OS-Temp
