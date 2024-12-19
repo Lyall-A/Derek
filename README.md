@@ -1,6 +1,6 @@
 # Derek the Ender-3 V2
 
-TODO: description
+Everything derek related
 
 ## Mods/Parts
 * [Derekputer](https://www.aliexpress.com/item/1005005785846814.html)
@@ -13,7 +13,7 @@ TODO: description
 * [Z-Axis Camera Mount](./Models/Z-Axis%20Camera%20Mount%20(+-0.2mm).stl)
 * [PET/PEI Magnetic Build Plate](https://www.aliexpress.com/item/1005005536007858.html)
 
-## Derekputer Docker Containers (TODO)
+## Derekputer Docker Containers
 * [Proxy](https://github.com/Lyall-A/HTTP-Reverse-Proxy)
 * [OctoPrint](https://octoprint.org/)
 * [Derek Cam](https://github.com/Lyall-A/Derek-Cam)
@@ -40,7 +40,7 @@ TODO: description
 * The AUX fan is slightly fucked, got a free replacement from Creality and within seconds fucked that one too :)
 
 ## TODO's
-* ~~Change the popup that shows on the LCD during boot, seems to be in the binary at [Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a](https://github.com/Lyall-A/Derek-Firmware/tree/main/Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a)~~ doesn't seem to be possible
+* ~~Change the popup that shows on the LCD during boot, seems to be in the binary at [Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a](https://github.com/Lyall-A/Derek-Firmware/tree/main/Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a)~~ doesn't seem to be possible (Disabled PROUI_EX)
 * ~~Get Derek OS running from Debian with custom Linux kernel tweaks~~
 * ~~Derek Cam script + offline and error jpegs~~
 * Fix Derekputer going offline after a few days/weeks (create watchdog script?)

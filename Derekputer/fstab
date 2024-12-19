@@ -1,3 +1,0 @@
-# /dev/vda /boot vfat defaults 0 2
-# /dev/sda1 /boot vfat defaults 0 2
-/swapfile none swap defaults 0 0

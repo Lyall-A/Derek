@@ -7,3 +7,6 @@
 [submodule "Derek-PSU"]
 	path = Derek-PSU
 	url = git@github.com:Lyall-A/Derek-PSU.git
+[submodule "Derekputer"]
+	path = Derekputer
+	url = git@github.com:Lyall-A/Derekputer
