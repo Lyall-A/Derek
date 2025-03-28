@@ -3,9 +3,9 @@
 Everything derek related
 
 ## Mods/Parts
-* [Derekputer](https://www.aliexpress.com/item/1005005785846814.html)
+* [Derekputer (Orange Pi Zero 3)](https://www.aliexpress.com/item/1005005785846814.html)
 * [BLTouch](https://www.123-3d.co.uk/Antclabs-BLTouch-Auto-Bed-Levelling-Sensor-v3-1-BLTOUCH-i3640-t19122.html)
-* [Hotend Fan](https://amzn.eu/d/3sNrajx)
+* [Hotend Fan (Noctua NF-A4x10)](https://amzn.eu/d/3sNrajx)
 * [LED Strips](https://www.aliexpress.com/item/1005003279313941.html)
 * [BLTouch Mount](./Models/BLTouch%20Mount.stl)
 * [Direct Drive Mount](./Models/Direct%20Drive%20Mount.stl)
@@ -18,33 +18,32 @@ Everything derek related
 ## Derekputer Docker Containers
 * [Proxy](https://github.com/Lyall-A/Yet-Another-Proxy)
 * [OctoPrint](https://octoprint.org/)
-* [Derek Cam](https://github.com/Lyall-A/Derek-Cam)
-* [Derek PSU](https://github.com/Lyall-A/Derek-PSU)
+* [Derek API](https://github.com/Lyall-A/Derek-API)
+* ~~[Derek Cam](https://github.com/Lyall-A/Derek-Cam)~~
+* ~~[Derek PSU](https://github.com/Lyall-A/Derek-PSU)~~
 
 ## Local Links
 * [OctoPrint](http://derek.home.arpa)
-* [Derek Cam](http://cam.derek.home.arpa)
+* [Derek API](http://api.derek.home.arpa)
 
 ## Public Links
-* [OctoPrint](http://derek.lyall.lol)
-* [Derek Cam](http://derek-cam.lyall.lol)
+* [OctoPrint](https://derek.lyall.lol)
+* [Derek API](https://derek-api.lyall.lol)
 
 ## Calibration
 *I used [Ellis' Print Tuning Guide](https://ellis3dp.com/Print-Tuning-Guide/) to calibrate*
 * TODO
 
 ## Random info
-* Derekputer is a Orange Pi Zero 3 with 4GB RAM
-* Derek Cam is a random ass webcam I got years ago
-* The 24V hotend fan is replaced with a 5V Noctua fan connected to BLTouch power connector
+* Hotend fan is connected to the BLTouch connector
 * The BLTouch connector on the mainboard is mostly soldered, wires being soldered from the connector pins on the back of the mainboard to 2 2-pin terminal blocks
-* The LCD cable ground wire is fucked from me and a knife, I didn't add any more wire when resoldering so the ground wire specifically is shorter
-* The AUX fan is slightly fucked, got a free replacement from Creality and within seconds fucked that one too :)
+* The LCD cable ground wire is damaged and is slightly shorter after being soldered back together
+* Aux fan is slightly damaged
 
 ## TODO's
-* Rewrite Derek PSU and Derek Cam
 * Maybe custom AMS?
-* Put LED strips on a MOSFET and add controls via API
+* ~~Put LED strips on a MOSFET and add controls via API~~
+* ~~Rewrite Derek PSU and Derek Cam~~ introducing derek api!
 * ~~Make Direct Drive model~~
 * ~~Change the popup that shows on the LCD during boot, seems to be in the binary at [Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a](https://github.com/Lyall-A/Derek-Firmware/tree/main/Marlin/lib/proui/stm32f1/libproui_ubl_dwin.a)~~ doesn't seem to be possible (Disabled PROUI_EX)
 * ~~Get Derek OS running from Debian with custom Linux kernel tweaks~~
