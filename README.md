@@ -15,6 +15,11 @@ Everything derek related
 * [Z-Axis Camera Mount](./Models/Z-Axis%20Camera%20Mount%20(+-0.2mm).stl)
 * [PET/PEI Magnetic Build Plate](https://www.aliexpress.com/item/1005005536007858.html)
 
+## Repositories
+* [Derekputer](https://github.com/Lyall-A/Derekputer) Fully custom automated deployment scripts and Debian-based OS for Derekputer (Derek-OS)
+* [Derek-Firmware](https://github.com/Lyall-A/Derek-Firmware) Derek's firmware ([MRiscoC's Professional Firmware](https://github.com/mriscoc/Ender3V2S1))
+* [Derek-API](https://github.com/Lyall-A/Derek-API) An API for Derek
+
 ## Derekputer Docker Containers
 * [Proxy](https://github.com/Lyall-A/Yet-Another-Proxy)
 * [OctoPrint](https://octoprint.org/)
