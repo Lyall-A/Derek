@@ -1,9 +1,9 @@
 [submodule "Derek-Firmware"]
 	path = Derek-Firmware
-	url = git@github.com:Lyall-A/Derek-Firmware.git
+	url = https://github.com/Lyall-A/Derek-Firmware.git
 [submodule "Derekputer"]
 	path = Derekputer
 	url = git@github.com:Lyall-A/Derekputer
 [submodule "Derek-API"]
 	path = Derek-API
-	url = https://github.com/Lyall-A/Derek-API
+	url = https://github.com/Lyall-A/Derek-API.git
